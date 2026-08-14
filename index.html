@@ -3,1123 +3,291 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>智元组织结构图与业务线图谱</title>
+    <title>智元组织架构 | 智元图谱</title>
     <meta
       name="description"
-      content="基于 39 份简历线索逆向推断的智元组织结构图、业务线图谱与组织运行框架。"
+      content="基于 39 份简历线索逆向推断的智元组织架构图。"
     />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Sora:wght@500;600;700;800&display=swap");
-
-      :root {
-        color-scheme: light;
-        --bg: oklch(96.9% 0.006 85);
-        --paper: oklch(99.5% 0.003 85);
-        --paper-soft: oklch(98.8% 0.004 85);
-        --ink: oklch(26% 0.02 248);
-        --muted: oklch(48% 0.016 248);
-        --line: oklch(86% 0.01 85);
-        --blue: oklch(63% 0.16 248);
-        --blue-soft: oklch(96% 0.016 247);
-        --green: oklch(72% 0.1 158);
-        --green-soft: oklch(96% 0.014 160);
-        --orange: oklch(77% 0.12 74);
-        --orange-soft: oklch(96.5% 0.016 74);
-        --purple: oklch(67% 0.15 312);
-        --purple-soft: oklch(96.2% 0.018 311);
-        --shadow: 0 14px 36px oklch(32% 0.018 248 / 0.08);
-        --radius-xl: 24px;
-        --radius-lg: 18px;
-        --radius-md: 14px;
-        --radius-sm: 999px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
-          sans-serif;
-        color: var(--ink);
-        background:
-          radial-gradient(circle at top left, oklch(94.5% 0.03 90 / 0.55), transparent 28%),
-          radial-gradient(circle at 100% 12%, oklch(94.4% 0.022 248 / 0.5), transparent 24%),
-          linear-gradient(180deg, var(--bg), oklch(95.8% 0.006 85));
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.2;
-        background-image:
-          radial-gradient(oklch(54% 0.01 85 / 0.55) 0.6px, transparent 0.6px);
-        background-size: 14px 14px;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      .page {
-        width: min(1280px, calc(100% - 28px));
-        margin: 0 auto;
-        padding: 18px 0 36px;
-        position: relative;
-      }
-
-      .masthead {
-        display: grid;
-        grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
-        gap: 18px;
-        align-items: start;
-        margin-bottom: 16px;
-      }
-
-      .masthead-block,
-      .signal-panel,
-      .board,
-      .note-bar {
-        border: 1px solid var(--line);
-        border-radius: var(--radius-xl);
-        background: var(--paper);
-        box-shadow: var(--shadow);
-      }
-
-      .masthead-block {
-        padding: 18px 20px;
-      }
-
-      .eyebrow,
-      .board-label,
-      .legend-chip,
-      .mini-chip,
-      .node-chip,
-      .status-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border-radius: var(--radius-sm);
-        font-size: 0.77rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .eyebrow {
-        padding: 8px 12px;
-        color: var(--blue);
-        background: var(--blue-soft);
-        font-family: "Sora", sans-serif;
-      }
-
-      .eyebrow::before,
-      .board-label::before,
-      .legend-chip::before,
-      .mini-chip::before,
-      .node-chip::before,
-      .status-chip::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: currentColor;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4 {
-        margin: 0;
-        font-family: "Sora", "Noto Sans SC", sans-serif;
-      }
-
-      h1 {
-        margin-top: 14px;
-        font-size: clamp(1.9rem, 4vw, 3.2rem);
-        line-height: 0.98;
-        letter-spacing: -0.045em;
-      }
-
-      .subtitle {
-        margin-top: 12px;
-        max-width: 62ch;
-        font-size: 0.96rem;
-        line-height: 1.7;
-        color: var(--muted);
-      }
-
-      .mini-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-      }
-
-      .mini-chip {
-        padding: 7px 10px;
-        color: var(--muted);
-        background: var(--paper-soft);
-        border: 1px solid var(--line);
-        text-transform: none;
-        letter-spacing: 0;
-        font-weight: 600;
-      }
-
-      .signal-panel {
-        padding: 16px;
-        display: grid;
-        gap: 12px;
-        background:
-          linear-gradient(180deg, oklch(99.6% 0.003 85), oklch(98.7% 0.004 85));
-      }
-
-      .signal-card {
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        padding: 14px;
-        background: var(--paper);
-      }
-
-      .signal-card h3 {
-        font-size: 0.95rem;
-        margin-bottom: 6px;
-      }
-
-      .signal-card p {
-        margin: 0;
-        font-size: 0.84rem;
-        line-height: 1.55;
-        color: var(--muted);
-      }
-
-      .board {
-        padding: 18px;
-        margin-top: 14px;
-      }
-
-      .board-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 14px;
-        flex-wrap: wrap;
-        margin-bottom: 16px;
-      }
-
-      .board-label {
-        padding: 7px 11px;
-        font-family: "Sora", sans-serif;
-        margin-bottom: 10px;
-      }
-
-      .board-label.is-blue {
-        color: var(--blue);
-        background: var(--blue-soft);
-      }
-
-      .board-label.is-orange {
-        color: var(--orange);
-        background: var(--orange-soft);
-      }
-
-      .board-label.is-purple {
-        color: var(--purple);
-        background: var(--purple-soft);
-      }
-
-      .board-title {
-        font-size: clamp(1.28rem, 2vw, 1.85rem);
-        letter-spacing: -0.03em;
-      }
-
-      .board-copy {
-        margin-top: 8px;
-        max-width: 70ch;
-        font-size: 0.9rem;
-        line-height: 1.65;
-        color: var(--muted);
-      }
-
-      .legend-row {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .legend-chip,
-      .status-chip {
-        padding: 7px 10px;
-        border: 1px solid var(--line);
-        text-transform: none;
-        letter-spacing: 0;
-        font-weight: 600;
-        background: var(--paper-soft);
-      }
-
-      .legend-chip.is-blue,
-      .status-chip.is-high {
-        color: var(--blue);
-      }
-
-      .legend-chip.is-green {
-        color: var(--green);
-      }
-
-      .legend-chip.is-orange,
-      .status-chip.is-medium {
-        color: var(--orange);
-      }
-
-      .legend-chip.is-purple,
-      .status-chip.is-low {
-        color: var(--purple);
-      }
-
-      .diagram-stack {
-        display: grid;
-        gap: 10px;
-      }
-
-      .arrow-rail {
-        width: 1px;
-        height: 18px;
-        justify-self: center;
-        background:
-          repeating-linear-gradient(
-            180deg,
-            oklch(54% 0.014 248 / 0.88),
-            oklch(54% 0.014 248 / 0.88) 5px,
-            transparent 5px,
-            transparent 9px
-          );
-      }
-
-      .layer {
-        border: 1.5px solid;
-        border-radius: 20px;
-        padding: 14px;
-      }
-
-      .layer.is-green {
-        border-color: oklch(72% 0.08 158 / 0.5);
-        background: var(--green-soft);
-      }
-
-      .layer.is-blue {
-        border-color: oklch(63% 0.11 248 / 0.45);
-        background: var(--blue-soft);
-      }
-
-      .layer.is-orange {
-        border-color: oklch(77% 0.08 74 / 0.48);
-        background: var(--orange-soft);
-      }
-
-      .layer.is-purple {
-        border-color: oklch(67% 0.1 312 / 0.4);
-        background: var(--purple-soft);
-      }
-
-      .layer-head {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-bottom: 12px;
-      }
-
-      .layer-head h3 {
-        font-size: 1rem;
-      }
-
-      .layer-sub {
-        font-size: 0.8rem;
-        color: var(--muted);
-      }
-
-      .node-grid {
-        display: grid;
-        gap: 10px;
-      }
-
-      .node-grid.is-five {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-      }
-
-      .node-grid.is-four {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .node-grid.is-seven {
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-      }
-
-      .node {
-        min-width: 0;
-        border: 1px solid oklch(84% 0.012 85);
-        border-radius: var(--radius-lg);
-        background: var(--paper);
-        padding: 13px;
-        box-shadow: 0 7px 18px oklch(28% 0.014 248 / 0.07);
-      }
-
-      .node-top {
-        display: flex;
-        gap: 10px;
-        align-items: start;
-      }
-
-      .node-mark {
-        width: 24px;
-        height: 24px;
-        flex: 0 0 auto;
-        border-radius: 8px;
-        border: 1px solid;
-        position: relative;
-        background: var(--paper);
-      }
-
-      .node-mark::before,
-      .node-mark::after {
-        content: "";
-        position: absolute;
-        background: currentColor;
-      }
-
-      .node-mark::before {
-        width: 10px;
-        height: 2px;
-        left: 6px;
-        top: 11px;
-      }
-
-      .node-mark::after {
-        width: 2px;
-        height: 10px;
-        left: 10px;
-        top: 6px;
-      }
-
-      .node-mark.is-blue {
-        color: var(--blue);
-        border-color: oklch(63% 0.11 248 / 0.28);
-        background: var(--blue-soft);
-      }
-
-      .node-mark.is-green {
-        color: var(--green);
-        border-color: oklch(72% 0.07 158 / 0.28);
-        background: var(--green-soft);
-      }
-
-      .node-mark.is-orange {
-        color: var(--orange);
-        border-color: oklch(77% 0.07 74 / 0.28);
-        background: var(--orange-soft);
-      }
-
-      .node-mark.is-purple {
-        color: var(--purple);
-        border-color: oklch(67% 0.08 312 / 0.28);
-        background: var(--purple-soft);
-      }
-
-      .node h4 {
-        font-size: 0.93rem;
-        line-height: 1.3;
-      }
-
-      .node p {
-        margin: 7px 0 0;
-        font-size: 0.8rem;
-        line-height: 1.55;
-        color: var(--muted);
-      }
-
-      .node-foot {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-top: 9px;
-      }
-
-      .node-chip {
-        padding: 5px 8px;
-        border: 1px solid var(--line);
-        text-transform: none;
-        letter-spacing: 0;
-        font-size: 0.72rem;
-        font-weight: 600;
-        background: var(--paper-soft);
-      }
-
-      .node-chip.is-blue {
-        color: var(--blue);
-      }
-
-      .node-chip.is-green {
-        color: var(--green);
-      }
-
-      .node-chip.is-orange {
-        color: var(--orange);
-      }
-
-      .node-chip.is-purple {
-        color: var(--purple);
-      }
-
-      .map-layout {
-        display: grid;
-        gap: 12px;
-      }
-
-      .map-links {
-        display: grid;
-        grid-template-columns: 1.05fr 0.7fr 1.05fr;
-        gap: 12px;
-      }
-
-      .link-card {
-        border: 1px dashed oklch(80% 0.014 248);
-        border-radius: var(--radius-lg);
-        background: var(--paper);
-        padding: 13px 14px;
-      }
-
-      .link-card h4 {
-        font-size: 0.88rem;
-        margin-bottom: 5px;
-      }
-
-      .link-card p {
-        margin: 0;
-        font-size: 0.8rem;
-        line-height: 1.55;
-        color: var(--muted);
-      }
-
-      .note-bar {
-        padding: 14px;
-        margin-top: 14px;
-      }
-
-      .note-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .note-card {
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--paper-soft);
-        padding: 12px 13px;
-      }
-
-      .note-card h3 {
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-      }
-
-      .note-card p {
-        margin: 0;
-        font-size: 0.8rem;
-        line-height: 1.55;
-        color: var(--muted);
-      }
-
-      footer {
-        margin-top: 12px;
-        padding: 0 6px;
-        font-size: 0.8rem;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      @media (max-width: 1180px) {
-        .node-grid.is-five,
-        .node-grid.is-seven {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .node-grid.is-four,
-        .map-links,
-        .note-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 920px) {
-        .masthead,
-        .note-grid,
-        .map-links {
-          grid-template-columns: 1fr;
-        }
-
-        .node-grid.is-five,
-        .node-grid.is-four,
-        .node-grid.is-seven {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .board {
-          padding: 15px;
-        }
-      }
-
-      @media (max-width: 620px) {
-        .page {
-          width: min(100% - 18px, 1280px);
-          padding-top: 10px;
-        }
-
-        .masthead-block,
-        .signal-panel,
-        .board,
-        .note-bar {
-          border-radius: 18px;
-        }
-
-        .node-grid.is-five,
-        .node-grid.is-four,
-        .node-grid.is-seven,
-        .note-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .board-header,
-        .layer-head {
-          align-items: start;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="assets/site.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="masthead">
-        <section class="masthead-block">
-          <div class="eyebrow">Zhiyuan Reverse Engineered Map</div>
-          <h1>智元组织结构图 + 业务线图谱</h1>
-          <p class="subtitle">
-            基于 39 份简历线索逆向整理。当前最稳的判断是，智元已经不是单线研发团队，而是“共享中台 + 产品线 + 嵌入式交付”的矩阵组织。
-          </p>
-          <div class="mini-row">
-            <span class="mini-chip">更新于 2026-08-14</span>
-            <span class="mini-chip">主要收入形态偏 ToB</span>
-            <span class="mini-chip">非官方推断版本</span>
-          </div>
-        </section>
-
-        <aside class="signal-panel">
-          <article class="signal-card">
-            <h3>组织锚点</h3>
-            <p>通用产品线、营销服务体系、运营质量部、中央研究部，这些抬头说明组织单元已较正式。</p>
-          </article>
-          <article class="signal-card">
-            <h3>阶段信号</h3>
-            <p>备件中心、海外交付、第三方服务商、PPAP、DVPV 同时出现，说明公司已进入规模化交付期。</p>
-          </article>
-          <article class="signal-card">
-            <h3>核心结论</h3>
-            <p>主航道是人形机器人，同时向平台软件、核心模组和相邻机器人形态扩张。</p>
-          </article>
-        </aside>
-      </header>
-
-      <section class="board" id="org">
-        <div class="board-header">
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">智</div>
           <div>
-            <div class="board-label is-blue">Org Diagram</div>
-            <h2 class="board-title">组织结构图</h2>
-            <p class="board-copy">
-              阅读方式很简单：上层定方向，中台定标准，中间的嵌入角色负责把标准压到现场，底层是各条产品线和业务单元。
+            <div class="brand-name">智元图谱</div>
+            <div class="brand-sub">组织 · 人才 · 来源</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="nav-group-title">图谱页</div>
+          <nav class="nav-list" aria-label="页面导航">
+            <a class="nav-item" href="index.html" aria-current="page">
+              <div class="nav-icon">组</div>
+              <div class="nav-copy">
+                <strong>组织架构</strong>
+                <span>矩阵结构与业务树</span>
+              </div>
+            </a>
+            <a class="nav-item" href="talent-distribution.html">
+              <div class="nav-icon">分</div>
+              <div class="nav-copy">
+                <strong>人才分布</strong>
+                <span>样本密度与阶段信号</span>
+              </div>
+            </a>
+            <a class="nav-item" href="talent-sources.html">
+              <div class="nav-icon">源</div>
+              <div class="nav-copy">
+                <strong>人才来源</strong>
+                <span>背景池与招聘逻辑</span>
+              </div>
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-note">
+          本图谱基于 39 份简历线索逆向整理，不是智元官方组织架构。当前版本更适合用于组织判断、竞对分析与招聘研究。
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <div class="workspace-shell">
+          <header class="page-head">
+            <div class="page-chip">Page 1 / 3</div>
+            <h1>智元组织架构</h1>
+            <p>
+              当前最稳的判断是，智元已经不是单线研发团队，而是“共享中台 + 产品线 + 嵌入式交付”的矩阵组织。
             </p>
-          </div>
-          <div class="legend-row">
-            <span class="legend-chip is-blue">共享中台</span>
-            <span class="legend-chip is-green">产品线 / BU</span>
-            <span class="legend-chip is-orange">交付执行</span>
-          </div>
-        </div>
-
-        <div class="diagram-stack">
-          <section class="layer is-orange">
-            <div class="layer-head">
-              <div>
-                <h3>Decision Layer</h3>
-                <div class="layer-sub">方向、资源与关键节奏</div>
-              </div>
-              <span class="status-chip is-high">高置信</span>
+            <div class="meta-row">
+              <span class="meta-chip">高置信结构推断</span>
+              <span class="meta-chip">主要收入形态偏 ToB</span>
+              <span class="meta-chip">更新于 2026-08-14</span>
             </div>
-            <div class="node-grid">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>CEO / 总裁层</h4>
-                    <p>统一牵引产品战略、商业化节奏、交付标准与跨产品线资源分配。</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
+          </header>
 
-          <div class="arrow-rail" aria-hidden="true"></div>
-
-          <section class="layer is-blue">
-            <div class="layer-head">
-              <div>
-                <h3>Shared Centers</h3>
-                <div class="layer-sub">统一方法、品牌、质量、服务与体验能力</div>
-              </div>
-              <span class="status-chip is-high">公司级中台</span>
+          <section class="canvas">
+            <div class="canvas-note">
+              <p>
+                阅读顺序：最上层定方向，中间中台定标准，嵌入式角色把标准压到现场，最底层是实际承接收入和交付的业务线。
+              </p>
+              <span class="cell-chip">核心结论：多产品线 + 共享中台</span>
             </div>
 
-            <div class="node-grid is-five">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>品牌与市场传播</h4>
-                    <p>品牌体系、产品营销、海外社媒、事件传播。</p>
-                  </div>
+            <div class="board">
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Decision Layer</div>
+                  <div class="band-sub">方向、资源与关键节奏</div>
                 </div>
-                <div class="node-foot">
-                  <span class="node-chip is-green">品牌</span>
-                  <span class="node-chip is-green">传播</span>
-                  <span class="node-chip is-green">线索</span>
+                <div class="diagram-grid cols-1">
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">C</div>
+                      <div>
+                        <h3>CEO / 总裁层</h3>
+                        <p>统一牵引产品战略、商业化节奏、交付标准与跨产品线资源分配。</p>
+                      </div>
+                    </div>
+                  </article>
                 </div>
-              </article>
+              </section>
 
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>商业化中心</h4>
-                    <p>GTM、销售运营、伙伴体系、合同回款与国际物流。</p>
-                  </div>
-                </div>
-                <div class="node-foot">
-                  <span class="node-chip is-blue">GTM</span>
-                  <span class="node-chip is-blue">销售运营</span>
-                </div>
-              </article>
+              <div class="connector" aria-hidden="true"></div>
 
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>产品与体验中心</h4>
-                    <p>平台产品、工业设计、UX、HCI、中央研究。</p>
-                  </div>
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Shared Centers</div>
+                  <div class="band-sub">统一方法、品牌、质量、服务与体验能力</div>
                 </div>
-                <div class="node-foot">
-                  <span class="node-chip is-purple">平台产品</span>
-                  <span class="node-chip is-purple">中央研究</span>
+                <div class="diagram-grid cols-5">
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">市</div>
+                      <div>
+                        <h4>品牌与市场传播</h4>
+                        <p>品牌体系、产品营销、海外社媒、事件传播。</p>
+                      </div>
+                    </div>
+                    <div class="node-meta">负责声量、线索与品类教育</div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">商</div>
+                      <div>
+                        <h4>商业化中心</h4>
+                        <p>GTM、销售运营、伙伴体系、合同回款与国际物流。</p>
+                      </div>
+                    </div>
+                    <div class="node-meta">负责“怎么卖”和“怎么结算”</div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">产</div>
+                      <div>
+                        <h4>产品与体验中心</h4>
+                        <p>平台产品、工业设计、UX、HCI、中央研究。</p>
+                      </div>
+                    </div>
+                    <div class="node-meta">负责定义、交互和前瞻体验</div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">服</div>
+                      <div>
+                        <h4>营销服务体系</h4>
+                        <p>交付、售后、培训、客服、FAE、备件和服务商网络。</p>
+                      </div>
+                    </div>
+                    <div class="node-meta">负责从交付到运维的全链路</div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">质</div>
+                      <div>
+                        <h4>质量体系</h4>
+                        <p>运营质量、研发质量、测试平台、SQE、供应商质量。</p>
+                      </div>
+                    </div>
+                    <div class="node-meta">负责工业化语言和量产门槛</div>
+                  </article>
                 </div>
-              </article>
+              </section>
 
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>营销服务体系</h4>
-                    <p>交付、售后、培训、客服、FAE、备件和服务商网络。</p>
-                  </div>
+              <div class="connector" aria-hidden="true"></div>
+
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Embedded Roles</div>
+                  <div class="band-sub">把中台标准压到产品线和客户现场</div>
                 </div>
-                <div class="node-foot">
-                  <span class="node-chip is-orange">交付</span>
-                  <span class="node-chip is-orange">售后</span>
-                  <span class="node-chip is-orange">认证</span>
+                <div class="diagram-grid cols-4">
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">品</div>
+                      <div>
+                        <h4>产品线质量总监</h4>
+                        <p>贴近 A2、人形和量产项目，直接负责批量交付质量。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">后</div>
+                      <div>
+                        <h4>产品线售后代表</h4>
+                        <p>把交付、返修、服务标准和一线问题闭环接起来。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">交</div>
+                      <div>
+                        <h4>交付 PM / 客户项目组</h4>
+                        <p>面向大客户、海外项目和群控项目做穿透式交付。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">现</div>
+                      <div>
+                        <h4>客服 / FAE / 海外支持</h4>
+                        <p>承担问题数据库、培训、远程排障和现场支援。</p>
+                      </div>
+                    </div>
+                  </article>
                 </div>
-              </article>
+              </section>
 
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>质量体系</h4>
-                    <p>运营质量、研发质量、测试平台、SQE、供应商质量。</p>
-                  </div>
+              <div class="connector" aria-hidden="true"></div>
+
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Business Units</div>
+                  <div class="band-sub">当前最可能存在的产品线与业务树</div>
                 </div>
-                <div class="node-foot">
-                  <span class="node-chip is-blue">运营质量部</span>
-                  <span class="node-chip is-blue">测试</span>
+                <div class="diagram-grid cols-6">
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">人</div>
+                      <div>
+                        <h4>人形机器人主线</h4>
+                        <p>灵犀 X1、灵犀 X2、G1、G2、精灵 G2、Genie。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">A</div>
+                      <div>
+                        <h4>通用产品线 / 远征 A2</h4>
+                        <p>标准化量产平台，承接 GTM、大客户验收与群控展示。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">灵</div>
+                      <div>
+                        <h4>灵心平台 / AgentOS</h4>
+                        <p>零代码 Agent 配置、知识库、记忆与调试体验。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">手</div>
+                      <div>
+                        <h4>灵巧手 / 关节模组</h4>
+                        <p>部件平台化能力，覆盖设计、测试和现场支持。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">清</div>
+                      <div>
+                        <h4>商业清洁</h4>
+                        <p>在设计和质量岗位里反复出现，像正式相邻业务线。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">拓</div>
+                      <div>
+                        <h4>四足 / 外骨骼研究线</h4>
+                        <p>当前更像相邻拓展线，成熟度低于人形和 A2。</p>
+                      </div>
+                    </div>
+                  </article>
                 </div>
-              </article>
-            </div>
-          </section>
-
-          <div class="arrow-rail" aria-hidden="true"></div>
-
-          <section class="layer is-purple">
-            <div class="layer-head">
-              <div>
-                <h3>Embedded Execution</h3>
-                <div class="layer-sub">把中台标准压到产品线与客户现场</div>
-              </div>
-              <span class="status-chip is-medium">现场角色</span>
-            </div>
-
-            <div class="node-grid is-four">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>产品线质量总监</h4>
-                    <p>贴近 A2、人形和量产项目，负责批量交付质量。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>产品线售后代表</h4>
-                    <p>把交付、返修、服务标准和一线问题闭环接起来。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>交付 PM / 客户项目组</h4>
-                    <p>面向大客户、海外项目和群控项目做穿透式交付。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>客服 / FAE / 海外支持</h4>
-                    <p>承担问题数据库、培训、远程排障和现场支援。</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <div class="arrow-rail" aria-hidden="true"></div>
-
-          <section class="layer is-green">
-            <div class="layer-head">
-              <div>
-                <h3>Business Units</h3>
-                <div class="layer-sub">当前最可能存在的产品线与业务树</div>
-              </div>
-              <span class="status-chip is-medium">部分需继续核验</span>
-            </div>
-
-            <div class="node-grid is-seven">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>人形机器人主线</h4>
-                    <p>灵犀 X1、灵犀 X2、G1、G2、精灵 G2、Genie。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>通用产品线 / 远征 A2</h4>
-                    <p>标准化量产平台，承接 GTM、大客户验收与群控展示。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>灵心平台 / AgentOS</h4>
-                    <p>零代码 Agent 配置、知识库、记忆与调试体验。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>灵巧手 / 关节模组</h4>
-                    <p>部件平台化能力，覆盖设计、测试和现场支持。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>商业清洁</h4>
-                    <p>在设计和质量岗位里反复出现，像正式相邻业务线。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>四足</h4>
-                    <p>目前更多出现在售后与质量链路，成熟度低于人形与 A2。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>外骨骼 / 研究线</h4>
-                    <p>主要依赖杭州研究院线索，是否同树仍需单独核验。</p>
-                  </div>
-                </div>
-              </article>
+              </section>
             </div>
           </section>
-        </div>
-      </section>
 
-      <section class="board" id="lines">
-        <div class="board-header">
-          <div>
-            <div class="board-label is-orange">Business Map</div>
-            <h2 class="board-title">业务线图谱</h2>
-            <p class="board-copy">
-              如果只看经营逻辑，智元当前更像“三层组合”：核心量产线提供收入，平台能力线提供复用底座，相邻拓展线提供未来增长选项。
-            </p>
-          </div>
-          <div class="legend-row">
-            <span class="legend-chip is-orange">核心量产</span>
-            <span class="legend-chip is-blue">平台能力</span>
-            <span class="legend-chip is-purple">相邻拓展</span>
+          <div class="footer-note">
+            高置信部分：共享中台、营销服务体系、运营质量部、通用产品线、人形主航道。
+            待核验部分：杭州研究院与上海主体系关系，四足和外骨骼的正式业务地位。
           </div>
         </div>
-
-        <div class="map-layout">
-          <section class="layer is-orange">
-            <div class="layer-head">
-              <div>
-                <h3>Core Monetization Lanes</h3>
-                <div class="layer-sub">收入主线，交付信号最完整</div>
-              </div>
-              <span class="status-chip is-high">量产最稳</span>
-            </div>
-            <div class="node-grid is-four">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>人形机器人</h4>
-                    <p>最完整闭环，品牌、交付、服务和质量资源最集中。</p>
-                  </div>
-                </div>
-                <div class="node-foot">
-                  <span class="node-chip is-orange">主航道</span>
-                  <span class="node-chip is-orange">海外交付</span>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-orange"></div>
-                  <div>
-                    <h4>远征 A2</h4>
-                    <p>更标准化，承担大客户、群控和平台复制角色。</p>
-                  </div>
-                </div>
-                <div class="node-foot">
-                  <span class="node-chip is-orange">标准产品</span>
-                  <span class="node-chip is-orange">PPAP</span>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>交付侧拉动</h4>
-                    <p>备件、培训、售后和服务商网络已经围绕这两条主线建起来。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>品牌侧拉动</h4>
-                    <p>热点传播、海外社媒和大型事件营销都在为主线放大认知。</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <div class="arrow-rail" aria-hidden="true"></div>
-
-          <section class="layer is-blue">
-            <div class="layer-head">
-              <div>
-                <h3>Platform Capability Lanes</h3>
-                <div class="layer-sub">多产品形态共享的能力地基</div>
-              </div>
-              <span class="status-chip is-medium">复用层</span>
-            </div>
-            <div class="node-grid is-four">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>灵心平台 / AgentOS</h4>
-                    <p>让机器人能力从“功能”变成“可配置的平台产品”。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-blue"></div>
-                  <div>
-                    <h4>灵巧手 / 关节 / 控制器</h4>
-                    <p>从部件设计、测试规范到 FAE，都在走平台化路线。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>中央研究 / HCI</h4>
-                    <p>补前瞻交互、行为设计和研究型体验能力。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>测试与质量底座</h4>
-                    <p>测试平台、供应商质量与运营质量一起构成工业化底盘。</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <div class="arrow-rail" aria-hidden="true"></div>
-
-          <section class="layer is-purple">
-            <div class="layer-head">
-              <div>
-                <h3>Adjacent Expansion Lanes</h3>
-                <div class="layer-sub">可复用能力外溢后的增长备选项</div>
-              </div>
-              <span class="status-chip is-low">仍需补证</span>
-            </div>
-            <div class="node-grid is-four">
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>商业清洁</h4>
-                    <p>较像正式业务线，可能承担更稳定的商用收入。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>四足</h4>
-                    <p>目前更像预备产品线或项目群，服务和质量已提前布点。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-purple"></div>
-                  <div>
-                    <h4>外骨骼</h4>
-                    <p>研究线特征更强，需要进一步确认与上海主体系的关系。</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="node">
-                <div class="node-top">
-                  <div class="node-mark is-green"></div>
-                  <div>
-                    <h4>组织含义</h4>
-                    <p>智元不像单一人形公司，而像具身智能主航道上的平台化机器人公司。</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <div class="map-links">
-            <article class="link-card">
-              <h4>收入判断</h4>
-              <p>当前收入抓手最可能来自人形机器人主线与通用产品线，ToC 更多承担品牌放大器角色。</p>
-            </article>
-            <article class="link-card">
-              <h4>复用判断</h4>
-              <p>平台软件、部件模组、测试和质量体系，是多条业务线共享的真实底层资产。</p>
-            </article>
-            <article class="link-card">
-              <h4>扩张判断</h4>
-              <p>商业清洁、四足和外骨骼体现出“相邻市场延展”，不是只讲单一人形故事。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="note-bar">
-        <div class="note-grid">
-          <article class="note-card">
-            <h3>高置信部分</h3>
-            <p>多产品线存在，品牌和商业化独立建制，交付和质量体系都已明显成形。</p>
-          </article>
-          <article class="note-card">
-            <h3>最强证据链</h3>
-            <p>备件中心、海外交付、服务商网络、运营质量部、产品线质量总监，这些都不是早期 Demo 公司的配置。</p>
-          </article>
-          <article class="note-card">
-            <h3>待核验部分</h3>
-            <p>杭州智元研究院与上海主体系的关系，四足和外骨骼的正式业务地位，以及 Genie 与精灵 G2 的产品归属。</p>
-          </article>
-        </div>
-      </section>
-
-      <footer>
-        页面说明：本页基于简历岗位线索逆向整理，适合内部沟通、竞对判断和招聘分析。对外引用时，建议明确标注“基于公开招聘与候选人简历线索的非官方推断”。
-      </footer>
+      </main>
     </div>
   </body>
 </html>

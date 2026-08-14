@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智元人才分布 | 智元图谱</title>
+    <meta
+      name="description"
+      content="基于 39 份简历线索整理的智元人才分布与招聘密度判断。"
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">智</div>
+          <div>
+            <div class="brand-name">智元图谱</div>
+            <div class="brand-sub">组织 · 人才 · 来源</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="nav-group-title">图谱页</div>
+          <nav class="nav-list" aria-label="页面导航">
+            <a class="nav-item" href="index.html">
+              <div class="nav-icon">组</div>
+              <div class="nav-copy">
+                <strong>组织架构</strong>
+                <span>矩阵结构与业务树</span>
+              </div>
+            </a>
+            <a class="nav-item" href="talent-distribution.html" aria-current="page">
+              <div class="nav-icon">分</div>
+              <div class="nav-copy">
+                <strong>人才分布</strong>
+                <span>样本密度与阶段信号</span>
+              </div>
+            </a>
+            <a class="nav-item" href="talent-sources.html">
+              <div class="nav-icon">源</div>
+              <div class="nav-copy">
+                <strong>人才来源</strong>
+                <span>背景池与招聘逻辑</span>
+              </div>
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-note">
+          本页展示的是样本分布，不等于智元官方 HC 配置。它更适合读出“当前招聘重心”和“公司处于哪个发展阶段”。
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <div class="workspace-shell">
+          <header class="page-head">
+            <div class="page-chip">Page 2 / 3</div>
+            <h1>智元人才分布</h1>
+            <p>
+              如果只看这批样本，智元当前最重视的不是纯算法岗位，而是“把产品做成、交出去、能规模化复制”的人才配置。
+            </p>
+            <div class="meta-row">
+              <span class="meta-chip">样本池：39 份</span>
+              <span class="meta-chip">按职能归类</span>
+              <span class="meta-chip">用于观察招聘倾向</span>
+            </div>
+          </header>
+
+          <section class="canvas">
+            <div class="canvas-note">
+              <p>
+                阅读顺序：先看四个职能板块的显性分布，再看这些分布背后的阶段含义。分布本身说明，智元这批样本明显偏产品化、设计化、交付化和工业化。
+              </p>
+              <span class="cell-chip">结论：当前招聘重心偏产品化落地</span>
+            </div>
+
+            <div class="board">
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Sample Pool</div>
+                  <div class="band-sub">观测窗口：简历汇总中的 39 个样本</div>
+                </div>
+                <div class="diagram-grid cols-1">
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">39</div>
+                      <div>
+                        <h3>总样本池</h3>
+                        <p>四大板块分别是商业化/产品、设计/交互、交付/服务、质量/测试。</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <div class="connector" aria-hidden="true"></div>
+
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Functional Split</div>
+                  <div class="band-sub">按简历汇总目录的显性职能分布</div>
+                </div>
+                <div class="diagram-grid cols-4">
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">商</div>
+                      <div>
+                        <h4>商业化 / 产品 / GTM</h4>
+                        <p>品牌、产品营销、GTM、销售运营、平台产品。</p>
+                      </div>
+                    </div>
+                    <div class="count">
+                      <strong>12</strong>
+                      <span>约 31%</span>
+                    </div>
+                  </article>
+
+                  <article class="node is-primary">
+                    <div class="node-top">
+                      <div class="node-mark">设</div>
+                      <div>
+                        <h4>设计 / UX / HCI</h4>
+                        <p>工业设计、交互设计、人机交互、中央研究体验岗位。</p>
+                      </div>
+                    </div>
+                    <div class="count">
+                      <strong>12</strong>
+                      <span>约 31%</span>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">服</div>
+                      <div>
+                        <h4>交付 / 售后 / 培训 / FAE</h4>
+                        <p>项目交付、客服、培训认证、海外支持、现场应用。</p>
+                      </div>
+                    </div>
+                    <div class="count">
+                      <strong>7</strong>
+                      <span>约 18%</span>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">质</div>
+                      <div>
+                        <h4>质量 / 测试 / SQE</h4>
+                        <p>研发质量、测试平台、供应商质量和量产质量岗位。</p>
+                      </div>
+                    </div>
+                    <div class="count">
+                      <strong>8</strong>
+                      <span>约 20%</span>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <div class="connector" aria-hidden="true"></div>
+
+              <section class="band">
+                <div class="band-head">
+                  <div class="band-label">Stage Reading</div>
+                  <div class="band-sub">这些分布反映的不是“全公司人数”，而是“当前最急的能力缺口”</div>
+                </div>
+                <div class="insight-row">
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">前</div>
+                      <div>
+                        <h4>高密度：前台产品化能力</h4>
+                        <p>商业化/产品/设计合计 24 份，占约 62%，说明智元正在加强“产品被看见、被理解、被使用”的能力。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">后</div>
+                      <div>
+                        <h4>中密度：交付与工业化后端</h4>
+                        <p>服务和质量合计 15 份，占约 38%，说明公司已不满足于 demo，需要能落地、能验收、能维保。</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="node">
+                    <div class="node-top">
+                      <div class="node-mark">缺</div>
+                      <div>
+                        <h4>低可见：核心算法 / 本体研发</h4>
+                        <p>这批样本里几乎看不到纯算法、本体控制和底层研发岗位，说明当前观察窗口更偏产品化和商业化阶段。</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <div class="footer-note">
+            结构性判断：智元这批样本最像“从研发驱动型团队，转向产品化、交付化、规模化公司的组织升级期”。
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
