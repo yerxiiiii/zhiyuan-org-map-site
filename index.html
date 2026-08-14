@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智元组织结构图与业务线图谱</title>
+    <meta
+      name="description"
+      content="基于 39 份简历线索逆向推断的智元组织结构图、业务线图谱与组织运行方式。"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
+
+      :root {
+        color-scheme: light;
+        --bg: oklch(97.6% 0.01 85);
+        --bg-strong: oklch(94.4% 0.028 82);
+        --paper: oklch(99.2% 0.004 84 / 0.9);
+        --paper-strong: oklch(97.8% 0.009 82 / 0.98);
+        --ink: oklch(24% 0.03 225);
+        --ink-soft: oklch(42% 0.026 218);
+        --line: oklch(84% 0.018 86);
+        --accent: oklch(58% 0.14 199);
+        --accent-soft: oklch(92% 0.033 197);
+        --signal: oklch(66% 0.13 53);
+        --signal-soft: oklch(93% 0.035 56);
+        --leaf: oklch(70% 0.11 150);
+        --leaf-soft: oklch(94% 0.03 151);
+        --warn: oklch(73% 0.11 87);
+        --warn-soft: oklch(95% 0.03 89);
+        --shadow: 0 30px 80px oklch(32% 0.04 228 / 0.08);
+        --radius-xl: 32px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+        --radius-sm: 999px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+          sans-serif;
+        background:
+          radial-gradient(circle at top left, oklch(94% 0.06 80), transparent 28%),
+          radial-gradient(circle at 90% 18%, oklch(91% 0.06 200 / 0.75), transparent 24%),
+          linear-gradient(180deg, var(--bg), oklch(96.4% 0.009 83));
+        color: var(--ink);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(oklch(78% 0.01 85 / 0.18) 1px, transparent 1px),
+          linear-gradient(90deg, oklch(78% 0.01 85 / 0.18) 1px, transparent 1px);
+        background-size: 36px 36px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
+        pointer-events: none;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1440px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 28px 0 60px;
+        position: relative;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+
+      .brand-chip,
+      .meta-chip,
+      .tag,
+      .stage-chip,
+      .confidence-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 10px 16px;
+        font-size: 0.92rem;
+        color: var(--ink-soft);
+        background: oklch(99% 0.004 84 / 0.74);
+        backdrop-filter: blur(12px);
+      }
+
+      .brand-chip::before,
+      .meta-chip::before,
+      .tag::before,
+      .stage-chip::before,
+      .confidence-chip::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        font-size: 0.95rem;
+        color: var(--ink-soft);
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        border: 1px solid transparent;
+      }
+
+      .nav-links a:hover {
+        border-color: var(--line);
+        background: oklch(99% 0.004 84 / 0.84);
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        padding: clamp(28px, 4vw, 48px);
+        background:
+          linear-gradient(135deg, oklch(99% 0.006 83 / 0.96), oklch(97.5% 0.013 82 / 0.95)),
+          var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        width: 460px;
+        height: 460px;
+        right: -180px;
+        top: -200px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, oklch(70% 0.11 199 / 0.2), transparent 58%);
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+        gap: 30px;
+        align-items: end;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        background: var(--accent-soft);
+        color: var(--ink);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-family: "Sora", "Noto Sans SC", sans-serif;
+      }
+
+      h1 {
+        max-width: 12ch;
+        font-size: clamp(2.3rem, 5vw, 4.7rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 65ch;
+        margin: 22px 0 0;
+        font-size: 1.08rem;
+        line-height: 1.85;
+        color: var(--ink-soft);
+      }
+
+      .hero-note {
+        margin-top: 20px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-side {
+        display: grid;
+        gap: 16px;
+      }
+
+      .highlight-card,
+      .info-card,
+      .lane,
+      .run-card,
+      .confidence-card,
+      .evidence-card,
+      .team-card,
+      .product-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: var(--paper);
+      }
+
+      .highlight-card {
+        padding: 22px;
+        background:
+          linear-gradient(180deg, oklch(99% 0.004 84 / 0.95), oklch(97.2% 0.008 83 / 0.97));
+      }
+
+      .highlight-card strong,
+      .metric-title,
+      .lane h3,
+      .run-card h3,
+      .team-card h3,
+      .product-card h3,
+      .confidence-card h3,
+      .evidence-card h3 {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+
+      .highlight-card p,
+      .info-card p,
+      .lane p,
+      .run-card p,
+      .team-card p,
+      .product-card p,
+      .confidence-card p,
+      .evidence-card p {
+        margin: 0;
+        color: var(--ink-soft);
+        line-height: 1.72;
+      }
+
+      .section {
+        margin-top: 34px;
+        padding: clamp(22px, 3vw, 34px);
+        border-radius: var(--radius-xl);
+        background: oklch(99% 0.004 84 / 0.86);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: end;
+        flex-wrap: wrap;
+        margin-bottom: 26px;
+      }
+
+      .section-kicker {
+        color: var(--signal);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.78rem;
+        font-family: "Sora", sans-serif;
+        margin-bottom: 12px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.65rem, 3.5vw, 2.8rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .section-header p {
+        max-width: 68ch;
+        margin: 12px 0 0;
+        color: var(--ink-soft);
+        line-height: 1.78;
+      }
+
+      .diagram-shell {
+        position: relative;
+        display: grid;
+        gap: 24px;
+      }
+
+      .chief {
+        justify-self: center;
+        min-width: min(100%, 360px);
+        padding: 22px 28px;
+        border-radius: 26px;
+        text-align: center;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(135deg, var(--signal-soft), oklch(99% 0.003 84 / 0.96));
+      }
+
+      .chief h3 {
+        font-size: 1.45rem;
+        margin-bottom: 10px;
+      }
+
+      .connector {
+        width: 1px;
+        height: 28px;
+        background: linear-gradient(180deg, var(--signal), var(--line));
+        justify-self: center;
+      }
+
+      .team-grid,
+      .product-grid,
+      .evidence-grid,
+      .confidence-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .team-card {
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .team-card::after {
+        content: "";
+        position: absolute;
+        inset: auto 18px 18px auto;
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        background: radial-gradient(circle, oklch(68% 0.11 199 / 0.14), transparent 70%);
+      }
+
+      .team-role {
+        font-size: 0.85rem;
+        color: var(--signal);
+        font-family: "Sora", sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .tag-row,
+      .evidence-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .tag,
+      .stage-chip,
+      .confidence-chip {
+        padding: 8px 12px;
+        font-size: 0.83rem;
+      }
+
+      .tag::before {
+        background: var(--signal);
+      }
+
+      .tag.is-leaf::before,
+      .stage-chip.is-platform::before {
+        background: var(--leaf);
+      }
+
+      .tag.is-warn::before,
+      .stage-chip.is-adjacent::before,
+      .confidence-chip.is-medium::before {
+        background: var(--warn);
+      }
+
+      .stage-chip.is-core {
+        background: var(--accent-soft);
+      }
+
+      .stage-chip.is-platform {
+        background: var(--leaf-soft);
+      }
+
+      .stage-chip.is-adjacent {
+        background: var(--warn-soft);
+      }
+
+      .confidence-chip.is-high {
+        background: var(--accent-soft);
+      }
+
+      .confidence-chip.is-medium {
+        background: var(--warn-soft);
+      }
+
+      .confidence-chip.is-low {
+        background: oklch(95% 0.02 20);
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+      }
+
+      .product-card {
+        padding: 18px;
+        min-height: 180px;
+        background:
+          linear-gradient(180deg, oklch(99% 0.004 84 / 0.96), oklch(97.8% 0.008 83 / 0.95));
+      }
+
+      .product-card p {
+        font-size: 0.94rem;
+      }
+
+      .lane-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .lane {
+        padding: 22px;
+      }
+
+      .lane-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .lane-header h3 {
+        margin-bottom: 0;
+      }
+
+      .lane-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-card {
+        padding: 18px;
+        background:
+          linear-gradient(180deg, oklch(99% 0.004 84 / 0.98), oklch(97.6% 0.008 82 / 0.96));
+      }
+
+      .info-card h4 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+
+      .info-card ul {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        color: var(--ink-soft);
+      }
+
+      .info-card li {
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: oklch(97.2% 0.009 83 / 0.95);
+      }
+
+      .run-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .run-card {
+        padding: 22px;
+      }
+
+      .run-card ol {
+        margin: 16px 0 0;
+        padding-left: 18px;
+        color: var(--ink-soft);
+        display: grid;
+        gap: 10px;
+        line-height: 1.72;
+      }
+
+      .confidence-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .confidence-card,
+      .evidence-card {
+        padding: 22px;
+      }
+
+      .confidence-card ul,
+      .evidence-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 16px 0 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .confidence-card li,
+      .evidence-card li {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: oklch(97.4% 0.009 82 / 0.95);
+        color: var(--ink-soft);
+        line-height: 1.7;
+      }
+
+      .evidence-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      footer {
+        margin-top: 26px;
+        padding: 20px 22px 0;
+        color: var(--ink-soft);
+        font-size: 0.94rem;
+        line-height: 1.78;
+      }
+
+      .fade-up {
+        opacity: 0;
+        transform: translateY(28px);
+        animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .delay-1 {
+        animation-delay: 0.08s;
+      }
+
+      .delay-2 {
+        animation-delay: 0.16s;
+      }
+
+      .delay-3 {
+        animation-delay: 0.24s;
+      }
+
+      .delay-4 {
+        animation-delay: 0.32s;
+      }
+
+      @keyframes fade-up {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 1240px) {
+        .team-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .product-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .evidence-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 980px) {
+        .page {
+          width: min(100% - 24px, 1440px);
+          padding-top: 18px;
+        }
+
+        .hero-grid,
+        .lane-grid,
+        .run-grid,
+        .confidence-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .team-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .section,
+        .hero {
+          padding: 22px;
+          border-radius: 24px;
+        }
+
+        .team-grid,
+        .product-grid,
+        .evidence-grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          max-width: none;
+        }
+
+        .topbar {
+          margin-bottom: 18px;
+        }
+
+        .nav-links {
+          width: 100%;
+        }
+
+        .nav-links a {
+          flex: 1 1 auto;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar fade-up">
+        <div class="brand-chip">智元逆向分析分享页</div>
+        <nav class="nav-links" aria-label="页面导航">
+          <a href="#org">组织结构图</a>
+          <a href="#lines">业务线图谱</a>
+          <a href="#operating">组织运行</a>
+          <a href="#confidence">置信度</a>
+        </nav>
+      </header>
+
+      <section class="hero fade-up delay-1">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">基于 39 份简历线索，更新于 2026 年 8 月 14 日</div>
+            <h1>智元组织结构图与业务线图谱</h1>
+            <p>
+              这不是官方 org chart，而是一份基于岗位名称、产品线痕迹、部门抬头和跨部门协作边界做出的逆向推断。
+              从这批简历看，智元已经不是单线研发团队，而是一个以人形机器人为主航道、以商业化和交付体系为支撑、再向平台化能力和相邻机器人形态扩张的矩阵组织。
+            </p>
+            <div class="hero-note">
+              <span class="meta-chip">核心判断，多产品线 + 共享中台 + 嵌入式运营</span>
+              <span class="meta-chip">主要收入形态偏 ToB，ToC 更像品牌放大器</span>
+            </div>
+          </div>
+
+          <div class="hero-side">
+            <article class="highlight-card">
+              <strong>最清晰的组织锚点</strong>
+              <p>通用产品线、营销服务体系、运营质量部、中央研究部，这些抬头说明公司已经在按正式组织单元运转。</p>
+            </article>
+            <article class="highlight-card">
+              <strong>最强的阶段信号</strong>
+              <p>备件中心、全球保供、第三方服务商网络、海外交付、PPAP 和 DVPV 同时出现，说明公司已进入批量交付和体系化扩张阶段。</p>
+            </article>
+            <article class="highlight-card">
+              <strong>最值得关注的变化</strong>
+              <p>组织正在从“把产品做出来”转向“把产品卖出去、交出去、规模化复制”，商业化和服务能力的补齐速度很快。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fade-up delay-2" id="org">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Org View</div>
+            <h2>组织结构图</h2>
+            <p>
+              最优解释不是纯职能制，也不是纯 BU 制，而是“共享中台定标准，产品线打结果，项目制打穿重点客户”的矩阵结构。
+            </p>
+          </div>
+          <span class="confidence-chip is-high">高置信，来自多个岗位交叉印证</span>
+        </div>
+
+        <div class="diagram-shell">
+          <div class="chief">
+            <h3>CEO / 总裁层</h3>
+            <p>统一牵引产品战略、商业化节奏、交付标准与跨产品线资源分配。</p>
+          </div>
+          <div class="connector" aria-hidden="true"></div>
+
+          <div class="team-grid">
+            <article class="team-card">
+              <div class="team-role">Shared Center</div>
+              <h3>品牌与市场传播中心</h3>
+              <p>承接品牌体系、项目传播、产品营销、海外社媒、事件营销，连接 ToB 线索与 ToC 声量。</p>
+              <div class="tag-row">
+                <span class="tag">品牌体系</span>
+                <span class="tag">产品营销</span>
+                <span class="tag">海外社媒</span>
+              </div>
+            </article>
+
+            <article class="team-card">
+              <div class="team-role">Shared Center</div>
+              <h3>商业化中心</h3>
+              <p>负责 GTM、销售运营、伙伴体系、合资协同、订单发运与回款，说明“卖货”已经成为独立系统工程。</p>
+              <div class="tag-row">
+                <span class="tag">GTM</span>
+                <span class="tag">销售运营</span>
+                <span class="tag">伙伴体系</span>
+              </div>
+            </article>
+
+            <article class="team-card">
+              <div class="team-role">Shared Center</div>
+              <h3>产品与体验中心</h3>
+              <p>平台产品、工业设计、UX、HCI 和中央研究并存，说明智元不只在做本体，也在做交互与平台能力。</p>
+              <div class="tag-row">
+                <span class="tag">平台产品</span>
+                <span class="tag is-leaf">工业设计</span>
+                <span class="tag is-leaf">中央研究</span>
+              </div>
+            </article>
+
+            <article class="team-card">
+              <div class="team-role">Shared Center</div>
+              <h3>营销服务体系</h3>
+              <p>交付 PM、售后、培训、客服、FAE、备件与服务商网络共同存在，已经具备典型规模化交付公司的服务骨架。</p>
+              <div class="tag-row">
+                <span class="tag">交付</span>
+                <span class="tag">售后</span>
+                <span class="tag">培训认证</span>
+              </div>
+            </article>
+
+            <article class="team-card">
+              <div class="team-role">Shared Center</div>
+              <h3>质量体系</h3>
+              <p>运营质量部、研发质量、测试平台、SQE 与供应商质量分层配置，明显借鉴汽车和消费硬件方法论。</p>
+              <div class="tag-row">
+                <span class="tag">运营质量部</span>
+                <span class="tag is-warn">测试平台</span>
+                <span class="tag is-warn">SQE</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="connector" aria-hidden="true"></div>
+
+          <div class="product-grid">
+            <article class="product-card">
+              <h3>人形机器人主线</h3>
+              <p>灵犀 X1、灵犀 X2、G1、G2、精灵 G2、Genie 等线索高度密集，是当前最确定的主航道。</p>
+            </article>
+            <article class="product-card">
+              <h3>通用产品线</h3>
+              <p>围绕远征 A2 展开 GTM、PQA、交付和大客户验收，像一条已进入标准化量产的正式产品线。</p>
+            </article>
+            <article class="product-card">
+              <h3>灵心平台</h3>
+              <p>AgentOS 面向 C/B 端做零代码智能体配置，补齐机器人上层配置和调试平台能力。</p>
+            </article>
+            <article class="product-card">
+              <h3>灵巧手与关节模组</h3>
+              <p>从工业设计、测试质量体系到关节和控制器规范，说明核心部件已经被当作平台能力经营。</p>
+            </article>
+            <article class="product-card">
+              <h3>商业清洁</h3>
+              <p>工业设计和质量岗位反复出现，且被和人形并列提及，更像正式相邻业务线而非单次项目。</p>
+            </article>
+            <article class="product-card">
+              <h3>四足</h3>
+              <p>目前更多从服务代表和质量链条上被看见，组织形态可能是独立项目群或预备产品线。</p>
+            </article>
+            <article class="product-card">
+              <h3>外骨骼研究线</h3>
+              <p>主要由杭州智元研究院痕迹支撑，是否与上海主体系完全同树，仍需单独核验。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fade-up delay-3" id="lines">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Business Lines</div>
+            <h2>业务线图谱</h2>
+            <p>
+              如果把业务形态按成熟度拆开，智元的组合更像“核心量产线 + 平台能力线 + 相邻拓展线”。这样既能保证现金流和交付节奏，也能为后续产品组合做技术复用。
+            </p>
+          </div>
+          <span class="confidence-chip is-medium">中高置信，个别线条仍需官方信息补证</span>
+        </div>
+
+        <div class="lane-grid">
+          <article class="lane">
+            <div class="lane-header">
+              <h3>核心量产线</h3>
+              <span class="stage-chip is-core">批量交付</span>
+            </div>
+            <p>这些线条已经同时出现市场、交付、售后、质量和供应链信号，成熟度最高。</p>
+            <div class="lane-stack">
+              <section class="info-card">
+                <h4>人形机器人</h4>
+                <p>最完整的商业闭环，从 ID、交互、质量到海外交付都已出现。</p>
+                <ul>
+                  <li>产品簇：灵犀 X1、灵犀 X2、G1、G2、Genie</li>
+                  <li>组织信号：交付 PM、海外支持、售后客服、研发质量</li>
+                  <li>经营含义：主航道，品牌和商业化资源集中度最高</li>
+                </ul>
+              </section>
+
+              <section class="info-card">
+                <h4>通用产品线 / 远征 A2</h4>
+                <p>像标准化平台产品，承担大客户场景与群控展示。</p>
+                <ul>
+                  <li>产品簇：远征 A2 旗舰款、基础款</li>
+                  <li>组织信号：GTM、PQA、售后服务代表、大客户 PPAP</li>
+                  <li>经营含义：面向规模复制与标准交付的现金流抓手</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-header">
+              <h3>平台能力线</h3>
+              <span class="stage-chip is-platform">平台建设</span>
+            </div>
+            <p>这些能力更偏复用层和基础设施层，是多产品形态共享的“能力地基”。</p>
+            <div class="lane-stack">
+              <section class="info-card">
+                <h4>灵心平台 / AgentOS</h4>
+                <p>零代码 Agent 配置、知识库、记忆与调试体验，说明智元在做上层软件平台。</p>
+                <ul>
+                  <li>能力词：配置、策略、知识、记忆、标签、调试</li>
+                  <li>服务对象：C/B 双端、场景运营团队、客户配置需求</li>
+                  <li>经营含义：把机器人能力产品化，而不只卖单一硬件</li>
+                </ul>
+              </section>
+
+              <section class="info-card">
+                <h4>灵巧手 / 关节 / 控制器模组</h4>
+                <p>从设计到测试规范都已独立出现，说明部件平台化程度在提升。</p>
+                <ul>
+                  <li>能力词：灵巧手、关节、控制器、电池、数据采集终端</li>
+                  <li>组织信号：专项设计实习、平台测试体系、FAE 支持</li>
+                  <li>经营含义：为人形、四足及其他形态提供通用部件底座</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-header">
+              <h3>相邻拓展线</h3>
+              <span class="stage-chip is-adjacent">战略孵化</span>
+            </div>
+            <p>这些方向说明智元没有把自己限定在单一人形叙事里，而是在拓展可复用的机器人商业版图。</p>
+            <div class="lane-stack">
+              <section class="info-card">
+                <h4>商业清洁</h4>
+                <p>工业设计和质量岗位都出现，且被和人形并列提及，成熟度高于普通概念项目。</p>
+                <ul>
+                  <li>产品线痕迹：商用清洁机器人 ID、全流程设计、双产品线质量管理</li>
+                  <li>组织含义：相邻市场验证，可能承担更稳定的商用收入</li>
+                </ul>
+              </section>
+
+              <section class="info-card">
+                <h4>四足与外骨骼</h4>
+                <p>四足更多出现在售后与质量链条，外骨骼主要依赖研究院线索，均值得继续追踪。</p>
+                <ul>
+                  <li>四足：服务代表、需求到量产质量闭环</li>
+                  <li>外骨骼：可穿戴、人体工效、软质接口</li>
+                  <li>组织含义：相邻机器人形态的储备位</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section fade-up delay-4" id="operating">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Operating Model</div>
+            <h2>组织如何运转</h2>
+            <p>
+              这批岗位最重要的启示不是“智元有哪些部门”，而是它们如何被组合成一个能量产、能交付、能持续服务的经营系统。
+            </p>
+          </div>
+        </div>
+
+        <div class="run-grid">
+          <article class="run-card">
+            <h3>共享中台，负责方法与标准</h3>
+            <p>品牌、GTM、质量、设计、培训被放在公司级视角统一建设，减少每条线重复造轮子。</p>
+            <ol>
+              <li>统一品牌口径、对外物料和热点传播节奏</li>
+              <li>统一质量语言，APQP、PPAP、DVPV、ECR/ECN 全流程接轨</li>
+              <li>统一服务能力，认证、工具、备件和服务商网络可复用</li>
+            </ol>
+          </article>
+
+          <article class="run-card">
+            <h3>产品线嵌入，负责结果与交付</h3>
+            <p>质量总监、售后服务代表、交付 PM、客服等角色直接贴近产品线运行，保证标准不会脱离现场。</p>
+            <ol>
+              <li>通用产品线围绕 A2 独立组织 GTM、质控和交付</li>
+              <li>人形主线围绕 G 系列、灵犀和 Genie 做整机闭环</li>
+              <li>相邻业务线复用中台能力，再按场景做轻量扩张</li>
+            </ol>
+          </article>
+
+          <article class="run-card">
+            <h3>项目制穿透，负责重点客户</h3>
+            <p>从大客户审核、海外交付到群控表演，项目制团队像是矩阵结构中的最后一公里。</p>
+            <ol>
+              <li>大客户场景需要工厂审核、PPAP、验收和文档体系</li>
+              <li>海外项目需要英语培训、现场支持和远程日志排障</li>
+              <li>事件传播和展演项目需要市场、产品、交付联动推进</li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="evidence-grid" style="margin-top: 22px;">
+          <article class="evidence-card">
+            <h3>商业化侧证据</h3>
+            <p>岗位不只停留在品牌宣传，而是已经出现完整的经营链路。</p>
+            <ul>
+              <li>GTM 经理、销售运营、伙伴体系、国际物流体系</li>
+              <li>海外社媒直接承担 ToB 线索获取</li>
+              <li>大型事件传播被用来放大产品和品牌认知</li>
+            </ul>
+          </article>
+
+          <article class="evidence-card">
+            <h3>服务侧证据</h3>
+            <p>能看到明显的“交付后半程组织”。</p>
+            <ul>
+              <li>ITR 流程、备件中心、示范维修中心、服务商网络</li>
+              <li>培训总监挂在营销服务体系，兼任产品线服务代表</li>
+              <li>售后客服、FAE、海外支持与交付文档体系并存</li>
+            </ul>
+          </article>
+
+          <article class="evidence-card">
+            <h3>质量侧证据</h3>
+            <p>岗位层次足以支撑多产品线工业化。</p>
+            <ul>
+              <li>运营质量部搭公司级研发质量流程</li>
+              <li>产品线质量总监压住批量交付质量</li>
+              <li>SQE 与供应商质量负责外部工业化能力</li>
+            </ul>
+          </article>
+
+          <article class="evidence-card">
+            <h3>平台化侧证据</h3>
+            <p>不仅卖整机，也在搭上层软件和下层模组能力。</p>
+            <ul>
+              <li>灵心平台聚焦 Agent 配置与调试体验</li>
+              <li>灵巧手、关节、控制器、电池已有独立测试规范</li>
+              <li>中央研究部和 HCI 角色在补前瞻体验能力</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section fade-up delay-4" id="confidence">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Confidence</div>
+            <h2>置信度与待核验项</h2>
+            <p>
+              这份图谱适合拿来沟通“组织形态和业务方向”，但不应被当作正式法定组织架构。以下部分相对稳，以下部分建议继续补证。
+            </p>
+          </div>
+        </div>
+
+        <div class="confidence-grid">
+          <article class="confidence-card">
+            <h3>高置信判断</h3>
+            <p>这些线索来自多个岗位互相印证，稳定性最高。</p>
+            <ul>
+              <li>公司存在不止一条机器人业务线，人形只是最核心的一条。</li>
+              <li>品牌、GTM、销售运营、营销服务、质量体系都已经独立建制。</li>
+              <li>交付和售后不是附属岗位，而是公司级能力建设重点。</li>
+              <li>质量方法论明显受到汽车和消费硬件工业化体系影响。</li>
+            </ul>
+          </article>
+
+          <article class="confidence-card">
+            <h3>待核验项</h3>
+            <p>这些部分目前更适合用“推断”而不是“定论”来表达。</p>
+            <ul>
+              <li>杭州智元研究院与上海主体系是否属于完全同一业务树。</li>
+              <li>四足是正式产品线、项目群，还是预研储备方向。</li>
+              <li>商业清洁是正式 BU 还是战略孵化业务。</li>
+              <li>Genie 与精灵 G2 是否为同系列命名，或只是近邻产品。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <footer class="fade-up delay-4">
+        页面说明：本页基于简历岗位线索逆向整理，适合用于团队讨论、竞对判断与招聘分析。
+        如果要对外公开引用，建议加注“基于公开招聘与候选人简历线索的非官方推断”。
+      </footer>
+    </div>
+  </body>
+</html>
