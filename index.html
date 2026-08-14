@@ -6,32 +6,31 @@
     <title>智元组织结构图与业务线图谱</title>
     <meta
       name="description"
-      content="基于 39 份简历线索逆向推断的智元组织结构图、业务线图谱与组织运行方式。"
+      content="基于 39 份简历线索逆向推断的智元组织结构图、业务线图谱与组织运行框架。"
     />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Sora:wght@500;600;700;800&display=swap");
 
       :root {
         color-scheme: light;
-        --bg: oklch(97.6% 0.01 85);
-        --bg-strong: oklch(94.4% 0.028 82);
-        --paper: oklch(99.2% 0.004 84 / 0.9);
-        --paper-strong: oklch(97.8% 0.009 82 / 0.98);
-        --ink: oklch(24% 0.03 225);
-        --ink-soft: oklch(42% 0.026 218);
-        --line: oklch(84% 0.018 86);
-        --accent: oklch(58% 0.14 199);
-        --accent-soft: oklch(92% 0.033 197);
-        --signal: oklch(66% 0.13 53);
-        --signal-soft: oklch(93% 0.035 56);
-        --leaf: oklch(70% 0.11 150);
-        --leaf-soft: oklch(94% 0.03 151);
-        --warn: oklch(73% 0.11 87);
-        --warn-soft: oklch(95% 0.03 89);
-        --shadow: 0 30px 80px oklch(32% 0.04 228 / 0.08);
-        --radius-xl: 32px;
-        --radius-lg: 22px;
-        --radius-md: 16px;
+        --bg: oklch(96.9% 0.006 85);
+        --paper: oklch(99.5% 0.003 85);
+        --paper-soft: oklch(98.8% 0.004 85);
+        --ink: oklch(26% 0.02 248);
+        --muted: oklch(48% 0.016 248);
+        --line: oklch(86% 0.01 85);
+        --blue: oklch(63% 0.16 248);
+        --blue-soft: oklch(96% 0.016 247);
+        --green: oklch(72% 0.1 158);
+        --green-soft: oklch(96% 0.014 160);
+        --orange: oklch(77% 0.12 74);
+        --orange-soft: oklch(96.5% 0.016 74);
+        --purple: oklch(67% 0.15 312);
+        --purple-soft: oklch(96.2% 0.018 311);
+        --shadow: 0 14px 36px oklch(32% 0.018 248 / 0.08);
+        --radius-xl: 24px;
+        --radius-lg: 18px;
+        --radius-md: 14px;
         --radius-sm: 999px;
       }
 
@@ -45,26 +44,24 @@
 
       body {
         margin: 0;
-        min-height: 100vh;
         font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
           sans-serif;
-        background:
-          radial-gradient(circle at top left, oklch(94% 0.06 80), transparent 28%),
-          radial-gradient(circle at 90% 18%, oklch(91% 0.06 200 / 0.75), transparent 24%),
-          linear-gradient(180deg, var(--bg), oklch(96.4% 0.009 83));
         color: var(--ink);
+        background:
+          radial-gradient(circle at top left, oklch(94.5% 0.03 90 / 0.55), transparent 28%),
+          radial-gradient(circle at 100% 12%, oklch(94.4% 0.022 248 / 0.5), transparent 24%),
+          linear-gradient(180deg, var(--bg), oklch(95.8% 0.006 85));
       }
 
       body::before {
         content: "";
         position: fixed;
         inset: 0;
-        background-image:
-          linear-gradient(oklch(78% 0.01 85 / 0.18) 1px, transparent 1px),
-          linear-gradient(90deg, oklch(78% 0.01 85 / 0.18) 1px, transparent 1px);
-        background-size: 36px 36px;
-        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
         pointer-events: none;
+        opacity: 0.2;
+        background-image:
+          radial-gradient(oklch(54% 0.01 85 / 0.55) 0.6px, transparent 0.6px);
+        background-size: 14px 14px;
       }
 
       a {
@@ -72,121 +69,68 @@
       }
 
       .page {
-        width: min(1440px, calc(100% - 40px));
+        width: min(1280px, calc(100% - 28px));
         margin: 0 auto;
-        padding: 28px 0 60px;
+        padding: 18px 0 36px;
         position: relative;
       }
 
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        align-items: center;
-        margin-bottom: 28px;
-        flex-wrap: wrap;
+      .masthead {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
+        gap: 18px;
+        align-items: start;
+        margin-bottom: 16px;
       }
 
-      .brand-chip,
-      .meta-chip,
-      .tag,
-      .stage-chip,
-      .confidence-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-sm);
-        padding: 10px 16px;
-        font-size: 0.92rem;
-        color: var(--ink-soft);
-        background: oklch(99% 0.004 84 / 0.74);
-        backdrop-filter: blur(12px);
-      }
-
-      .brand-chip::before,
-      .meta-chip::before,
-      .tag::before,
-      .stage-chip::before,
-      .confidence-chip::before {
-        content: "";
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--accent);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .nav-links a {
-        text-decoration: none;
-        font-size: 0.95rem;
-        color: var(--ink-soft);
-        padding: 10px 14px;
-        border-radius: var(--radius-sm);
-        border: 1px solid transparent;
-      }
-
-      .nav-links a:hover {
-        border-color: var(--line);
-        background: oklch(99% 0.004 84 / 0.84);
-      }
-
-      .hero {
-        position: relative;
-        overflow: hidden;
+      .masthead-block,
+      .signal-panel,
+      .board,
+      .note-bar {
         border: 1px solid var(--line);
         border-radius: var(--radius-xl);
-        padding: clamp(28px, 4vw, 48px);
-        background:
-          linear-gradient(135deg, oklch(99% 0.006 83 / 0.96), oklch(97.5% 0.013 82 / 0.95)),
-          var(--paper);
+        background: var(--paper);
         box-shadow: var(--shadow);
       }
 
-      .hero::after {
-        content: "";
-        position: absolute;
-        width: 460px;
-        height: 460px;
-        right: -180px;
-        top: -200px;
-        border-radius: 50%;
-        background:
-          radial-gradient(circle, oklch(70% 0.11 199 / 0.2), transparent 58%);
-        pointer-events: none;
+      .masthead-block {
+        padding: 18px 20px;
       }
 
-      .hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
-        gap: 30px;
-        align-items: end;
+      .eyebrow,
+      .board-label,
+      .legend-chip,
+      .mini-chip,
+      .node-chip,
+      .status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: var(--radius-sm);
+        font-size: 0.77rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
 
       .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 18px;
-        padding: 10px 14px;
-        border-radius: var(--radius-sm);
-        background: var(--accent-soft);
-        color: var(--ink);
-        font-size: 0.9rem;
-        font-weight: 600;
+        padding: 8px 12px;
+        color: var(--blue);
+        background: var(--blue-soft);
+        font-family: "Sora", sans-serif;
       }
 
-      .eyebrow::before {
+      .eyebrow::before,
+      .board-label::before,
+      .legend-chip::before,
+      .mini-chip::before,
+      .node-chip::before,
+      .status-chip::before {
         content: "";
-        width: 11px;
-        height: 11px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        background: var(--accent);
+        background: currentColor;
       }
 
       h1,
@@ -198,841 +142,983 @@
       }
 
       h1 {
-        max-width: 12ch;
-        font-size: clamp(2.3rem, 5vw, 4.7rem);
-        line-height: 0.96;
-        letter-spacing: -0.05em;
+        margin-top: 14px;
+        font-size: clamp(1.9rem, 4vw, 3.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
       }
 
-      .hero p {
-        max-width: 65ch;
-        margin: 22px 0 0;
-        font-size: 1.08rem;
-        line-height: 1.85;
-        color: var(--ink-soft);
+      .subtitle {
+        margin-top: 12px;
+        max-width: 62ch;
+        font-size: 0.96rem;
+        line-height: 1.7;
+        color: var(--muted);
       }
 
-      .hero-note {
-        margin-top: 20px;
+      .mini-row {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
+        margin-top: 14px;
       }
 
-      .hero-side {
+      .mini-chip {
+        padding: 7px 10px;
+        color: var(--muted);
+        background: var(--paper-soft);
+        border: 1px solid var(--line);
+        text-transform: none;
+        letter-spacing: 0;
+        font-weight: 600;
+      }
+
+      .signal-panel {
+        padding: 16px;
         display: grid;
-        gap: 16px;
+        gap: 12px;
+        background:
+          linear-gradient(180deg, oklch(99.6% 0.003 85), oklch(98.7% 0.004 85));
       }
 
-      .highlight-card,
-      .info-card,
-      .lane,
-      .run-card,
-      .confidence-card,
-      .evidence-card,
-      .team-card,
-      .product-card {
+      .signal-card {
         border: 1px solid var(--line);
         border-radius: var(--radius-lg);
+        padding: 14px;
         background: var(--paper);
       }
 
-      .highlight-card {
-        padding: 22px;
-        background:
-          linear-gradient(180deg, oklch(99% 0.004 84 / 0.95), oklch(97.2% 0.008 83 / 0.97));
+      .signal-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
       }
 
-      .highlight-card strong,
-      .metric-title,
-      .lane h3,
-      .run-card h3,
-      .team-card h3,
-      .product-card h3,
-      .confidence-card h3,
-      .evidence-card h3 {
-        display: block;
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-      }
-
-      .highlight-card p,
-      .info-card p,
-      .lane p,
-      .run-card p,
-      .team-card p,
-      .product-card p,
-      .confidence-card p,
-      .evidence-card p {
+      .signal-card p {
         margin: 0;
-        color: var(--ink-soft);
-        line-height: 1.72;
+        font-size: 0.84rem;
+        line-height: 1.55;
+        color: var(--muted);
       }
 
-      .section {
-        margin-top: 34px;
-        padding: clamp(22px, 3vw, 34px);
-        border-radius: var(--radius-xl);
-        background: oklch(99% 0.004 84 / 0.86);
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow);
-      }
-
-      .section-header {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        align-items: end;
-        flex-wrap: wrap;
-        margin-bottom: 26px;
-      }
-
-      .section-kicker {
-        color: var(--signal);
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-size: 0.78rem;
-        font-family: "Sora", sans-serif;
-        margin-bottom: 12px;
-      }
-
-      .section-header h2 {
-        font-size: clamp(1.65rem, 3.5vw, 2.8rem);
-        line-height: 1.02;
-        letter-spacing: -0.04em;
-      }
-
-      .section-header p {
-        max-width: 68ch;
-        margin: 12px 0 0;
-        color: var(--ink-soft);
-        line-height: 1.78;
-      }
-
-      .diagram-shell {
-        position: relative;
-        display: grid;
-        gap: 24px;
-      }
-
-      .chief {
-        justify-self: center;
-        min-width: min(100%, 360px);
-        padding: 22px 28px;
-        border-radius: 26px;
-        text-align: center;
-        border: 1px solid var(--line);
-        background:
-          linear-gradient(135deg, var(--signal-soft), oklch(99% 0.003 84 / 0.96));
-      }
-
-      .chief h3 {
-        font-size: 1.45rem;
-        margin-bottom: 10px;
-      }
-
-      .connector {
-        width: 1px;
-        height: 28px;
-        background: linear-gradient(180deg, var(--signal), var(--line));
-        justify-self: center;
-      }
-
-      .team-grid,
-      .product-grid,
-      .evidence-grid,
-      .confidence-grid {
-        display: grid;
-        gap: 18px;
-      }
-
-      .team-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-      }
-
-      .team-card {
-        padding: 22px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .team-card::after {
-        content: "";
-        position: absolute;
-        inset: auto 18px 18px auto;
-        width: 66px;
-        height: 66px;
-        border-radius: 50%;
-        background: radial-gradient(circle, oklch(68% 0.11 199 / 0.14), transparent 70%);
-      }
-
-      .team-role {
-        font-size: 0.85rem;
-        color: var(--signal);
-        font-family: "Sora", sans-serif;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      .tag-row,
-      .evidence-list {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 16px;
-      }
-
-      .tag,
-      .stage-chip,
-      .confidence-chip {
-        padding: 8px 12px;
-        font-size: 0.83rem;
-      }
-
-      .tag::before {
-        background: var(--signal);
-      }
-
-      .tag.is-leaf::before,
-      .stage-chip.is-platform::before {
-        background: var(--leaf);
-      }
-
-      .tag.is-warn::before,
-      .stage-chip.is-adjacent::before,
-      .confidence-chip.is-medium::before {
-        background: var(--warn);
-      }
-
-      .stage-chip.is-core {
-        background: var(--accent-soft);
-      }
-
-      .stage-chip.is-platform {
-        background: var(--leaf-soft);
-      }
-
-      .stage-chip.is-adjacent {
-        background: var(--warn-soft);
-      }
-
-      .confidence-chip.is-high {
-        background: var(--accent-soft);
-      }
-
-      .confidence-chip.is-medium {
-        background: var(--warn-soft);
-      }
-
-      .confidence-chip.is-low {
-        background: oklch(95% 0.02 20);
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-      }
-
-      .product-card {
+      .board {
         padding: 18px;
-        min-height: 180px;
-        background:
-          linear-gradient(180deg, oklch(99% 0.004 84 / 0.96), oklch(97.8% 0.008 83 / 0.95));
+        margin-top: 14px;
       }
 
-      .product-card p {
-        font-size: 0.94rem;
-      }
-
-      .lane-grid {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .lane {
-        padding: 22px;
-      }
-
-      .lane-header {
+      .board-header {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        align-items: end;
+        gap: 14px;
+        flex-wrap: wrap;
         margin-bottom: 16px;
       }
 
-      .lane-header h3 {
-        margin-bottom: 0;
+      .board-label {
+        padding: 7px 11px;
+        font-family: "Sora", sans-serif;
+        margin-bottom: 10px;
       }
 
-      .lane-stack {
+      .board-label.is-blue {
+        color: var(--blue);
+        background: var(--blue-soft);
+      }
+
+      .board-label.is-orange {
+        color: var(--orange);
+        background: var(--orange-soft);
+      }
+
+      .board-label.is-purple {
+        color: var(--purple);
+        background: var(--purple-soft);
+      }
+
+      .board-title {
+        font-size: clamp(1.28rem, 2vw, 1.85rem);
+        letter-spacing: -0.03em;
+      }
+
+      .board-copy {
+        margin-top: 8px;
+        max-width: 70ch;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        color: var(--muted);
+      }
+
+      .legend-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .legend-chip,
+      .status-chip {
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        text-transform: none;
+        letter-spacing: 0;
+        font-weight: 600;
+        background: var(--paper-soft);
+      }
+
+      .legend-chip.is-blue,
+      .status-chip.is-high {
+        color: var(--blue);
+      }
+
+      .legend-chip.is-green {
+        color: var(--green);
+      }
+
+      .legend-chip.is-orange,
+      .status-chip.is-medium {
+        color: var(--orange);
+      }
+
+      .legend-chip.is-purple,
+      .status-chip.is-low {
+        color: var(--purple);
+      }
+
+      .diagram-stack {
         display: grid;
-        gap: 14px;
+        gap: 10px;
       }
 
-      .info-card {
-        padding: 18px;
+      .arrow-rail {
+        width: 1px;
+        height: 18px;
+        justify-self: center;
         background:
-          linear-gradient(180deg, oklch(99% 0.004 84 / 0.98), oklch(97.6% 0.008 82 / 0.96));
+          repeating-linear-gradient(
+            180deg,
+            oklch(54% 0.014 248 / 0.88),
+            oklch(54% 0.014 248 / 0.88) 5px,
+            transparent 5px,
+            transparent 9px
+          );
       }
 
-      .info-card h4 {
+      .layer {
+        border: 1.5px solid;
+        border-radius: 20px;
+        padding: 14px;
+      }
+
+      .layer.is-green {
+        border-color: oklch(72% 0.08 158 / 0.5);
+        background: var(--green-soft);
+      }
+
+      .layer.is-blue {
+        border-color: oklch(63% 0.11 248 / 0.45);
+        background: var(--blue-soft);
+      }
+
+      .layer.is-orange {
+        border-color: oklch(77% 0.08 74 / 0.48);
+        background: var(--orange-soft);
+      }
+
+      .layer.is-purple {
+        border-color: oklch(67% 0.1 312 / 0.4);
+        background: var(--purple-soft);
+      }
+
+      .layer-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .layer-head h3 {
         font-size: 1rem;
-        margin-bottom: 8px;
       }
 
-      .info-card ul {
-        margin: 14px 0 0;
-        padding: 0;
-        list-style: none;
-        display: grid;
-        gap: 10px;
-        color: var(--ink-soft);
+      .layer-sub {
+        font-size: 0.8rem;
+        color: var(--muted);
       }
 
-      .info-card li {
-        padding: 10px 12px;
-        border-radius: 14px;
-        background: oklch(97.2% 0.009 83 / 0.95);
-      }
-
-      .run-grid {
-        display: grid;
-        gap: 18px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .run-card {
-        padding: 22px;
-      }
-
-      .run-card ol {
-        margin: 16px 0 0;
-        padding-left: 18px;
-        color: var(--ink-soft);
-        display: grid;
-        gap: 10px;
-        line-height: 1.72;
-      }
-
-      .confidence-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .confidence-card,
-      .evidence-card {
-        padding: 22px;
-      }
-
-      .confidence-card ul,
-      .evidence-card ul {
-        list-style: none;
-        padding: 0;
-        margin: 16px 0 0;
+      .node-grid {
         display: grid;
         gap: 10px;
       }
 
-      .confidence-card li,
-      .evidence-card li {
-        padding: 12px 14px;
-        border-radius: 14px;
-        background: oklch(97.4% 0.009 82 / 0.95);
-        color: var(--ink-soft);
-        line-height: 1.7;
+      .node-grid.is-five {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
       }
 
-      .evidence-grid {
+      .node-grid.is-four {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
+      .node-grid.is-seven {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+      }
+
+      .node {
+        min-width: 0;
+        border: 1px solid oklch(84% 0.012 85);
+        border-radius: var(--radius-lg);
+        background: var(--paper);
+        padding: 13px;
+        box-shadow: 0 7px 18px oklch(28% 0.014 248 / 0.07);
+      }
+
+      .node-top {
+        display: flex;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .node-mark {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        border: 1px solid;
+        position: relative;
+        background: var(--paper);
+      }
+
+      .node-mark::before,
+      .node-mark::after {
+        content: "";
+        position: absolute;
+        background: currentColor;
+      }
+
+      .node-mark::before {
+        width: 10px;
+        height: 2px;
+        left: 6px;
+        top: 11px;
+      }
+
+      .node-mark::after {
+        width: 2px;
+        height: 10px;
+        left: 10px;
+        top: 6px;
+      }
+
+      .node-mark.is-blue {
+        color: var(--blue);
+        border-color: oklch(63% 0.11 248 / 0.28);
+        background: var(--blue-soft);
+      }
+
+      .node-mark.is-green {
+        color: var(--green);
+        border-color: oklch(72% 0.07 158 / 0.28);
+        background: var(--green-soft);
+      }
+
+      .node-mark.is-orange {
+        color: var(--orange);
+        border-color: oklch(77% 0.07 74 / 0.28);
+        background: var(--orange-soft);
+      }
+
+      .node-mark.is-purple {
+        color: var(--purple);
+        border-color: oklch(67% 0.08 312 / 0.28);
+        background: var(--purple-soft);
+      }
+
+      .node h4 {
+        font-size: 0.93rem;
+        line-height: 1.3;
+      }
+
+      .node p {
+        margin: 7px 0 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      .node-foot {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 9px;
+      }
+
+      .node-chip {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        text-transform: none;
+        letter-spacing: 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: var(--paper-soft);
+      }
+
+      .node-chip.is-blue {
+        color: var(--blue);
+      }
+
+      .node-chip.is-green {
+        color: var(--green);
+      }
+
+      .node-chip.is-orange {
+        color: var(--orange);
+      }
+
+      .node-chip.is-purple {
+        color: var(--purple);
+      }
+
+      .map-layout {
+        display: grid;
+        gap: 12px;
+      }
+
+      .map-links {
+        display: grid;
+        grid-template-columns: 1.05fr 0.7fr 1.05fr;
+        gap: 12px;
+      }
+
+      .link-card {
+        border: 1px dashed oklch(80% 0.014 248);
+        border-radius: var(--radius-lg);
+        background: var(--paper);
+        padding: 13px 14px;
+      }
+
+      .link-card h4 {
+        font-size: 0.88rem;
+        margin-bottom: 5px;
+      }
+
+      .link-card p {
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      .note-bar {
+        padding: 14px;
+        margin-top: 14px;
+      }
+
+      .note-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .note-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: var(--paper-soft);
+        padding: 12px 13px;
+      }
+
+      .note-card h3 {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+
+      .note-card p {
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
       footer {
-        margin-top: 26px;
-        padding: 20px 22px 0;
-        color: var(--ink-soft);
-        font-size: 0.94rem;
-        line-height: 1.78;
+        margin-top: 12px;
+        padding: 0 6px;
+        font-size: 0.8rem;
+        color: var(--muted);
+        line-height: 1.6;
       }
 
-      .fade-up {
-        opacity: 0;
-        transform: translateY(28px);
-        animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-
-      .delay-1 {
-        animation-delay: 0.08s;
-      }
-
-      .delay-2 {
-        animation-delay: 0.16s;
-      }
-
-      .delay-3 {
-        animation-delay: 0.24s;
-      }
-
-      .delay-4 {
-        animation-delay: 0.32s;
-      }
-
-      @keyframes fade-up {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width: 1240px) {
-        .team-grid {
+      @media (max-width: 1180px) {
+        .node-grid.is-five,
+        .node-grid.is-seven {
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
-        .product-grid {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-
-        .evidence-grid {
+        .node-grid.is-four,
+        .map-links,
+        .note-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
-      @media (max-width: 980px) {
+      @media (max-width: 920px) {
+        .masthead,
+        .note-grid,
+        .map-links {
+          grid-template-columns: 1fr;
+        }
+
+        .node-grid.is-five,
+        .node-grid.is-four,
+        .node-grid.is-seven {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .board {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 620px) {
         .page {
-          width: min(100% - 24px, 1440px);
-          padding-top: 18px;
+          width: min(100% - 18px, 1280px);
+          padding-top: 10px;
         }
 
-        .hero-grid,
-        .lane-grid,
-        .run-grid,
-        .confidence-grid {
+        .masthead-block,
+        .signal-panel,
+        .board,
+        .note-bar {
+          border-radius: 18px;
+        }
+
+        .node-grid.is-five,
+        .node-grid.is-four,
+        .node-grid.is-seven,
+        .note-grid {
           grid-template-columns: 1fr;
         }
 
-        .team-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .product-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 680px) {
-        .section,
-        .hero {
-          padding: 22px;
-          border-radius: 24px;
-        }
-
-        .team-grid,
-        .product-grid,
-        .evidence-grid {
-          grid-template-columns: 1fr;
-        }
-
-        h1 {
-          max-width: none;
-        }
-
-        .topbar {
-          margin-bottom: 18px;
-        }
-
-        .nav-links {
-          width: 100%;
-        }
-
-        .nav-links a {
-          flex: 1 1 auto;
-          text-align: center;
+        .board-header,
+        .layer-head {
+          align-items: start;
         }
       }
     </style>
   </head>
   <body>
     <div class="page">
-      <header class="topbar fade-up">
-        <div class="brand-chip">智元逆向分析分享页</div>
-        <nav class="nav-links" aria-label="页面导航">
-          <a href="#org">组织结构图</a>
-          <a href="#lines">业务线图谱</a>
-          <a href="#operating">组织运行</a>
-          <a href="#confidence">置信度</a>
-        </nav>
+      <header class="masthead">
+        <section class="masthead-block">
+          <div class="eyebrow">Zhiyuan Reverse Engineered Map</div>
+          <h1>智元组织结构图 + 业务线图谱</h1>
+          <p class="subtitle">
+            基于 39 份简历线索逆向整理。当前最稳的判断是，智元已经不是单线研发团队，而是“共享中台 + 产品线 + 嵌入式交付”的矩阵组织。
+          </p>
+          <div class="mini-row">
+            <span class="mini-chip">更新于 2026-08-14</span>
+            <span class="mini-chip">主要收入形态偏 ToB</span>
+            <span class="mini-chip">非官方推断版本</span>
+          </div>
+        </section>
+
+        <aside class="signal-panel">
+          <article class="signal-card">
+            <h3>组织锚点</h3>
+            <p>通用产品线、营销服务体系、运营质量部、中央研究部，这些抬头说明组织单元已较正式。</p>
+          </article>
+          <article class="signal-card">
+            <h3>阶段信号</h3>
+            <p>备件中心、海外交付、第三方服务商、PPAP、DVPV 同时出现，说明公司已进入规模化交付期。</p>
+          </article>
+          <article class="signal-card">
+            <h3>核心结论</h3>
+            <p>主航道是人形机器人，同时向平台软件、核心模组和相邻机器人形态扩张。</p>
+          </article>
+        </aside>
       </header>
 
-      <section class="hero fade-up delay-1">
-        <div class="hero-grid">
+      <section class="board" id="org">
+        <div class="board-header">
           <div>
-            <div class="eyebrow">基于 39 份简历线索，更新于 2026 年 8 月 14 日</div>
-            <h1>智元组织结构图与业务线图谱</h1>
-            <p>
-              这不是官方 org chart，而是一份基于岗位名称、产品线痕迹、部门抬头和跨部门协作边界做出的逆向推断。
-              从这批简历看，智元已经不是单线研发团队，而是一个以人形机器人为主航道、以商业化和交付体系为支撑、再向平台化能力和相邻机器人形态扩张的矩阵组织。
+            <div class="board-label is-blue">Org Diagram</div>
+            <h2 class="board-title">组织结构图</h2>
+            <p class="board-copy">
+              阅读方式很简单：上层定方向，中台定标准，中间的嵌入角色负责把标准压到现场，底层是各条产品线和业务单元。
             </p>
-            <div class="hero-note">
-              <span class="meta-chip">核心判断，多产品线 + 共享中台 + 嵌入式运营</span>
-              <span class="meta-chip">主要收入形态偏 ToB，ToC 更像品牌放大器</span>
-            </div>
           </div>
+          <div class="legend-row">
+            <span class="legend-chip is-blue">共享中台</span>
+            <span class="legend-chip is-green">产品线 / BU</span>
+            <span class="legend-chip is-orange">交付执行</span>
+          </div>
+        </div>
 
-          <div class="hero-side">
-            <article class="highlight-card">
-              <strong>最清晰的组织锚点</strong>
-              <p>通用产品线、营销服务体系、运营质量部、中央研究部，这些抬头说明公司已经在按正式组织单元运转。</p>
+        <div class="diagram-stack">
+          <section class="layer is-orange">
+            <div class="layer-head">
+              <div>
+                <h3>Decision Layer</h3>
+                <div class="layer-sub">方向、资源与关键节奏</div>
+              </div>
+              <span class="status-chip is-high">高置信</span>
+            </div>
+            <div class="node-grid">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>CEO / 总裁层</h4>
+                    <p>统一牵引产品战略、商业化节奏、交付标准与跨产品线资源分配。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="arrow-rail" aria-hidden="true"></div>
+
+          <section class="layer is-blue">
+            <div class="layer-head">
+              <div>
+                <h3>Shared Centers</h3>
+                <div class="layer-sub">统一方法、品牌、质量、服务与体验能力</div>
+              </div>
+              <span class="status-chip is-high">公司级中台</span>
+            </div>
+
+            <div class="node-grid is-five">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>品牌与市场传播</h4>
+                    <p>品牌体系、产品营销、海外社媒、事件传播。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-green">品牌</span>
+                  <span class="node-chip is-green">传播</span>
+                  <span class="node-chip is-green">线索</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>商业化中心</h4>
+                    <p>GTM、销售运营、伙伴体系、合同回款与国际物流。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-blue">GTM</span>
+                  <span class="node-chip is-blue">销售运营</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>产品与体验中心</h4>
+                    <p>平台产品、工业设计、UX、HCI、中央研究。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-purple">平台产品</span>
+                  <span class="node-chip is-purple">中央研究</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>营销服务体系</h4>
+                    <p>交付、售后、培训、客服、FAE、备件和服务商网络。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-orange">交付</span>
+                  <span class="node-chip is-orange">售后</span>
+                  <span class="node-chip is-orange">认证</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>质量体系</h4>
+                    <p>运营质量、研发质量、测试平台、SQE、供应商质量。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-blue">运营质量部</span>
+                  <span class="node-chip is-blue">测试</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="arrow-rail" aria-hidden="true"></div>
+
+          <section class="layer is-purple">
+            <div class="layer-head">
+              <div>
+                <h3>Embedded Execution</h3>
+                <div class="layer-sub">把中台标准压到产品线与客户现场</div>
+              </div>
+              <span class="status-chip is-medium">现场角色</span>
+            </div>
+
+            <div class="node-grid is-four">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>产品线质量总监</h4>
+                    <p>贴近 A2、人形和量产项目，负责批量交付质量。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>产品线售后代表</h4>
+                    <p>把交付、返修、服务标准和一线问题闭环接起来。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>交付 PM / 客户项目组</h4>
+                    <p>面向大客户、海外项目和群控项目做穿透式交付。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>客服 / FAE / 海外支持</h4>
+                    <p>承担问题数据库、培训、远程排障和现场支援。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="arrow-rail" aria-hidden="true"></div>
+
+          <section class="layer is-green">
+            <div class="layer-head">
+              <div>
+                <h3>Business Units</h3>
+                <div class="layer-sub">当前最可能存在的产品线与业务树</div>
+              </div>
+              <span class="status-chip is-medium">部分需继续核验</span>
+            </div>
+
+            <div class="node-grid is-seven">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>人形机器人主线</h4>
+                    <p>灵犀 X1、灵犀 X2、G1、G2、精灵 G2、Genie。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>通用产品线 / 远征 A2</h4>
+                    <p>标准化量产平台，承接 GTM、大客户验收与群控展示。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>灵心平台 / AgentOS</h4>
+                    <p>零代码 Agent 配置、知识库、记忆与调试体验。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>灵巧手 / 关节模组</h4>
+                    <p>部件平台化能力，覆盖设计、测试和现场支持。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>商业清洁</h4>
+                    <p>在设计和质量岗位里反复出现，像正式相邻业务线。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>四足</h4>
+                    <p>目前更多出现在售后与质量链路，成熟度低于人形与 A2。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>外骨骼 / 研究线</h4>
+                    <p>主要依赖杭州研究院线索，是否同树仍需单独核验。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="board" id="lines">
+        <div class="board-header">
+          <div>
+            <div class="board-label is-orange">Business Map</div>
+            <h2 class="board-title">业务线图谱</h2>
+            <p class="board-copy">
+              如果只看经营逻辑，智元当前更像“三层组合”：核心量产线提供收入，平台能力线提供复用底座，相邻拓展线提供未来增长选项。
+            </p>
+          </div>
+          <div class="legend-row">
+            <span class="legend-chip is-orange">核心量产</span>
+            <span class="legend-chip is-blue">平台能力</span>
+            <span class="legend-chip is-purple">相邻拓展</span>
+          </div>
+        </div>
+
+        <div class="map-layout">
+          <section class="layer is-orange">
+            <div class="layer-head">
+              <div>
+                <h3>Core Monetization Lanes</h3>
+                <div class="layer-sub">收入主线，交付信号最完整</div>
+              </div>
+              <span class="status-chip is-high">量产最稳</span>
+            </div>
+            <div class="node-grid is-four">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>人形机器人</h4>
+                    <p>最完整闭环，品牌、交付、服务和质量资源最集中。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-orange">主航道</span>
+                  <span class="node-chip is-orange">海外交付</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-orange"></div>
+                  <div>
+                    <h4>远征 A2</h4>
+                    <p>更标准化，承担大客户、群控和平台复制角色。</p>
+                  </div>
+                </div>
+                <div class="node-foot">
+                  <span class="node-chip is-orange">标准产品</span>
+                  <span class="node-chip is-orange">PPAP</span>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>交付侧拉动</h4>
+                    <p>备件、培训、售后和服务商网络已经围绕这两条主线建起来。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>品牌侧拉动</h4>
+                    <p>热点传播、海外社媒和大型事件营销都在为主线放大认知。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="arrow-rail" aria-hidden="true"></div>
+
+          <section class="layer is-blue">
+            <div class="layer-head">
+              <div>
+                <h3>Platform Capability Lanes</h3>
+                <div class="layer-sub">多产品形态共享的能力地基</div>
+              </div>
+              <span class="status-chip is-medium">复用层</span>
+            </div>
+            <div class="node-grid is-four">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>灵心平台 / AgentOS</h4>
+                    <p>让机器人能力从“功能”变成“可配置的平台产品”。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-blue"></div>
+                  <div>
+                    <h4>灵巧手 / 关节 / 控制器</h4>
+                    <p>从部件设计、测试规范到 FAE，都在走平台化路线。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>中央研究 / HCI</h4>
+                    <p>补前瞻交互、行为设计和研究型体验能力。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>测试与质量底座</h4>
+                    <p>测试平台、供应商质量与运营质量一起构成工业化底盘。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="arrow-rail" aria-hidden="true"></div>
+
+          <section class="layer is-purple">
+            <div class="layer-head">
+              <div>
+                <h3>Adjacent Expansion Lanes</h3>
+                <div class="layer-sub">可复用能力外溢后的增长备选项</div>
+              </div>
+              <span class="status-chip is-low">仍需补证</span>
+            </div>
+            <div class="node-grid is-four">
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>商业清洁</h4>
+                    <p>较像正式业务线，可能承担更稳定的商用收入。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>四足</h4>
+                    <p>目前更像预备产品线或项目群，服务和质量已提前布点。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-purple"></div>
+                  <div>
+                    <h4>外骨骼</h4>
+                    <p>研究线特征更强，需要进一步确认与上海主体系的关系。</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="node">
+                <div class="node-top">
+                  <div class="node-mark is-green"></div>
+                  <div>
+                    <h4>组织含义</h4>
+                    <p>智元不像单一人形公司，而像具身智能主航道上的平台化机器人公司。</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="map-links">
+            <article class="link-card">
+              <h4>收入判断</h4>
+              <p>当前收入抓手最可能来自人形机器人主线与通用产品线，ToC 更多承担品牌放大器角色。</p>
             </article>
-            <article class="highlight-card">
-              <strong>最强的阶段信号</strong>
-              <p>备件中心、全球保供、第三方服务商网络、海外交付、PPAP 和 DVPV 同时出现，说明公司已进入批量交付和体系化扩张阶段。</p>
+            <article class="link-card">
+              <h4>复用判断</h4>
+              <p>平台软件、部件模组、测试和质量体系，是多条业务线共享的真实底层资产。</p>
             </article>
-            <article class="highlight-card">
-              <strong>最值得关注的变化</strong>
-              <p>组织正在从“把产品做出来”转向“把产品卖出去、交出去、规模化复制”，商业化和服务能力的补齐速度很快。</p>
+            <article class="link-card">
+              <h4>扩张判断</h4>
+              <p>商业清洁、四足和外骨骼体现出“相邻市场延展”，不是只讲单一人形故事。</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section fade-up delay-2" id="org">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Org View</div>
-            <h2>组织结构图</h2>
-            <p>
-              最优解释不是纯职能制，也不是纯 BU 制，而是“共享中台定标准，产品线打结果，项目制打穿重点客户”的矩阵结构。
-            </p>
-          </div>
-          <span class="confidence-chip is-high">高置信，来自多个岗位交叉印证</span>
-        </div>
-
-        <div class="diagram-shell">
-          <div class="chief">
-            <h3>CEO / 总裁层</h3>
-            <p>统一牵引产品战略、商业化节奏、交付标准与跨产品线资源分配。</p>
-          </div>
-          <div class="connector" aria-hidden="true"></div>
-
-          <div class="team-grid">
-            <article class="team-card">
-              <div class="team-role">Shared Center</div>
-              <h3>品牌与市场传播中心</h3>
-              <p>承接品牌体系、项目传播、产品营销、海外社媒、事件营销，连接 ToB 线索与 ToC 声量。</p>
-              <div class="tag-row">
-                <span class="tag">品牌体系</span>
-                <span class="tag">产品营销</span>
-                <span class="tag">海外社媒</span>
-              </div>
-            </article>
-
-            <article class="team-card">
-              <div class="team-role">Shared Center</div>
-              <h3>商业化中心</h3>
-              <p>负责 GTM、销售运营、伙伴体系、合资协同、订单发运与回款，说明“卖货”已经成为独立系统工程。</p>
-              <div class="tag-row">
-                <span class="tag">GTM</span>
-                <span class="tag">销售运营</span>
-                <span class="tag">伙伴体系</span>
-              </div>
-            </article>
-
-            <article class="team-card">
-              <div class="team-role">Shared Center</div>
-              <h3>产品与体验中心</h3>
-              <p>平台产品、工业设计、UX、HCI 和中央研究并存，说明智元不只在做本体，也在做交互与平台能力。</p>
-              <div class="tag-row">
-                <span class="tag">平台产品</span>
-                <span class="tag is-leaf">工业设计</span>
-                <span class="tag is-leaf">中央研究</span>
-              </div>
-            </article>
-
-            <article class="team-card">
-              <div class="team-role">Shared Center</div>
-              <h3>营销服务体系</h3>
-              <p>交付 PM、售后、培训、客服、FAE、备件与服务商网络共同存在，已经具备典型规模化交付公司的服务骨架。</p>
-              <div class="tag-row">
-                <span class="tag">交付</span>
-                <span class="tag">售后</span>
-                <span class="tag">培训认证</span>
-              </div>
-            </article>
-
-            <article class="team-card">
-              <div class="team-role">Shared Center</div>
-              <h3>质量体系</h3>
-              <p>运营质量部、研发质量、测试平台、SQE 与供应商质量分层配置，明显借鉴汽车和消费硬件方法论。</p>
-              <div class="tag-row">
-                <span class="tag">运营质量部</span>
-                <span class="tag is-warn">测试平台</span>
-                <span class="tag is-warn">SQE</span>
-              </div>
-            </article>
-          </div>
-
-          <div class="connector" aria-hidden="true"></div>
-
-          <div class="product-grid">
-            <article class="product-card">
-              <h3>人形机器人主线</h3>
-              <p>灵犀 X1、灵犀 X2、G1、G2、精灵 G2、Genie 等线索高度密集，是当前最确定的主航道。</p>
-            </article>
-            <article class="product-card">
-              <h3>通用产品线</h3>
-              <p>围绕远征 A2 展开 GTM、PQA、交付和大客户验收，像一条已进入标准化量产的正式产品线。</p>
-            </article>
-            <article class="product-card">
-              <h3>灵心平台</h3>
-              <p>AgentOS 面向 C/B 端做零代码智能体配置，补齐机器人上层配置和调试平台能力。</p>
-            </article>
-            <article class="product-card">
-              <h3>灵巧手与关节模组</h3>
-              <p>从工业设计、测试质量体系到关节和控制器规范，说明核心部件已经被当作平台能力经营。</p>
-            </article>
-            <article class="product-card">
-              <h3>商业清洁</h3>
-              <p>工业设计和质量岗位反复出现，且被和人形并列提及，更像正式相邻业务线而非单次项目。</p>
-            </article>
-            <article class="product-card">
-              <h3>四足</h3>
-              <p>目前更多从服务代表和质量链条上被看见，组织形态可能是独立项目群或预备产品线。</p>
-            </article>
-            <article class="product-card">
-              <h3>外骨骼研究线</h3>
-              <p>主要由杭州智元研究院痕迹支撑，是否与上海主体系完全同树，仍需单独核验。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section fade-up delay-3" id="lines">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Business Lines</div>
-            <h2>业务线图谱</h2>
-            <p>
-              如果把业务形态按成熟度拆开，智元的组合更像“核心量产线 + 平台能力线 + 相邻拓展线”。这样既能保证现金流和交付节奏，也能为后续产品组合做技术复用。
-            </p>
-          </div>
-          <span class="confidence-chip is-medium">中高置信，个别线条仍需官方信息补证</span>
-        </div>
-
-        <div class="lane-grid">
-          <article class="lane">
-            <div class="lane-header">
-              <h3>核心量产线</h3>
-              <span class="stage-chip is-core">批量交付</span>
-            </div>
-            <p>这些线条已经同时出现市场、交付、售后、质量和供应链信号，成熟度最高。</p>
-            <div class="lane-stack">
-              <section class="info-card">
-                <h4>人形机器人</h4>
-                <p>最完整的商业闭环，从 ID、交互、质量到海外交付都已出现。</p>
-                <ul>
-                  <li>产品簇：灵犀 X1、灵犀 X2、G1、G2、Genie</li>
-                  <li>组织信号：交付 PM、海外支持、售后客服、研发质量</li>
-                  <li>经营含义：主航道，品牌和商业化资源集中度最高</li>
-                </ul>
-              </section>
-
-              <section class="info-card">
-                <h4>通用产品线 / 远征 A2</h4>
-                <p>像标准化平台产品，承担大客户场景与群控展示。</p>
-                <ul>
-                  <li>产品簇：远征 A2 旗舰款、基础款</li>
-                  <li>组织信号：GTM、PQA、售后服务代表、大客户 PPAP</li>
-                  <li>经营含义：面向规模复制与标准交付的现金流抓手</li>
-                </ul>
-              </section>
-            </div>
+      <section class="note-bar">
+        <div class="note-grid">
+          <article class="note-card">
+            <h3>高置信部分</h3>
+            <p>多产品线存在，品牌和商业化独立建制，交付和质量体系都已明显成形。</p>
           </article>
-
-          <article class="lane">
-            <div class="lane-header">
-              <h3>平台能力线</h3>
-              <span class="stage-chip is-platform">平台建设</span>
-            </div>
-            <p>这些能力更偏复用层和基础设施层，是多产品形态共享的“能力地基”。</p>
-            <div class="lane-stack">
-              <section class="info-card">
-                <h4>灵心平台 / AgentOS</h4>
-                <p>零代码 Agent 配置、知识库、记忆与调试体验，说明智元在做上层软件平台。</p>
-                <ul>
-                  <li>能力词：配置、策略、知识、记忆、标签、调试</li>
-                  <li>服务对象：C/B 双端、场景运营团队、客户配置需求</li>
-                  <li>经营含义：把机器人能力产品化，而不只卖单一硬件</li>
-                </ul>
-              </section>
-
-              <section class="info-card">
-                <h4>灵巧手 / 关节 / 控制器模组</h4>
-                <p>从设计到测试规范都已独立出现，说明部件平台化程度在提升。</p>
-                <ul>
-                  <li>能力词：灵巧手、关节、控制器、电池、数据采集终端</li>
-                  <li>组织信号：专项设计实习、平台测试体系、FAE 支持</li>
-                  <li>经营含义：为人形、四足及其他形态提供通用部件底座</li>
-                </ul>
-              </section>
-            </div>
+          <article class="note-card">
+            <h3>最强证据链</h3>
+            <p>备件中心、海外交付、服务商网络、运营质量部、产品线质量总监，这些都不是早期 Demo 公司的配置。</p>
           </article>
-
-          <article class="lane">
-            <div class="lane-header">
-              <h3>相邻拓展线</h3>
-              <span class="stage-chip is-adjacent">战略孵化</span>
-            </div>
-            <p>这些方向说明智元没有把自己限定在单一人形叙事里，而是在拓展可复用的机器人商业版图。</p>
-            <div class="lane-stack">
-              <section class="info-card">
-                <h4>商业清洁</h4>
-                <p>工业设计和质量岗位都出现，且被和人形并列提及，成熟度高于普通概念项目。</p>
-                <ul>
-                  <li>产品线痕迹：商用清洁机器人 ID、全流程设计、双产品线质量管理</li>
-                  <li>组织含义：相邻市场验证，可能承担更稳定的商用收入</li>
-                </ul>
-              </section>
-
-              <section class="info-card">
-                <h4>四足与外骨骼</h4>
-                <p>四足更多出现在售后与质量链条，外骨骼主要依赖研究院线索，均值得继续追踪。</p>
-                <ul>
-                  <li>四足：服务代表、需求到量产质量闭环</li>
-                  <li>外骨骼：可穿戴、人体工效、软质接口</li>
-                  <li>组织含义：相邻机器人形态的储备位</li>
-                </ul>
-              </section>
-            </div>
+          <article class="note-card">
+            <h3>待核验部分</h3>
+            <p>杭州智元研究院与上海主体系的关系，四足和外骨骼的正式业务地位，以及 Genie 与精灵 G2 的产品归属。</p>
           </article>
         </div>
       </section>
 
-      <section class="section fade-up delay-4" id="operating">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Operating Model</div>
-            <h2>组织如何运转</h2>
-            <p>
-              这批岗位最重要的启示不是“智元有哪些部门”，而是它们如何被组合成一个能量产、能交付、能持续服务的经营系统。
-            </p>
-          </div>
-        </div>
-
-        <div class="run-grid">
-          <article class="run-card">
-            <h3>共享中台，负责方法与标准</h3>
-            <p>品牌、GTM、质量、设计、培训被放在公司级视角统一建设，减少每条线重复造轮子。</p>
-            <ol>
-              <li>统一品牌口径、对外物料和热点传播节奏</li>
-              <li>统一质量语言，APQP、PPAP、DVPV、ECR/ECN 全流程接轨</li>
-              <li>统一服务能力，认证、工具、备件和服务商网络可复用</li>
-            </ol>
-          </article>
-
-          <article class="run-card">
-            <h3>产品线嵌入，负责结果与交付</h3>
-            <p>质量总监、售后服务代表、交付 PM、客服等角色直接贴近产品线运行，保证标准不会脱离现场。</p>
-            <ol>
-              <li>通用产品线围绕 A2 独立组织 GTM、质控和交付</li>
-              <li>人形主线围绕 G 系列、灵犀和 Genie 做整机闭环</li>
-              <li>相邻业务线复用中台能力，再按场景做轻量扩张</li>
-            </ol>
-          </article>
-
-          <article class="run-card">
-            <h3>项目制穿透，负责重点客户</h3>
-            <p>从大客户审核、海外交付到群控表演，项目制团队像是矩阵结构中的最后一公里。</p>
-            <ol>
-              <li>大客户场景需要工厂审核、PPAP、验收和文档体系</li>
-              <li>海外项目需要英语培训、现场支持和远程日志排障</li>
-              <li>事件传播和展演项目需要市场、产品、交付联动推进</li>
-            </ol>
-          </article>
-        </div>
-
-        <div class="evidence-grid" style="margin-top: 22px;">
-          <article class="evidence-card">
-            <h3>商业化侧证据</h3>
-            <p>岗位不只停留在品牌宣传，而是已经出现完整的经营链路。</p>
-            <ul>
-              <li>GTM 经理、销售运营、伙伴体系、国际物流体系</li>
-              <li>海外社媒直接承担 ToB 线索获取</li>
-              <li>大型事件传播被用来放大产品和品牌认知</li>
-            </ul>
-          </article>
-
-          <article class="evidence-card">
-            <h3>服务侧证据</h3>
-            <p>能看到明显的“交付后半程组织”。</p>
-            <ul>
-              <li>ITR 流程、备件中心、示范维修中心、服务商网络</li>
-              <li>培训总监挂在营销服务体系，兼任产品线服务代表</li>
-              <li>售后客服、FAE、海外支持与交付文档体系并存</li>
-            </ul>
-          </article>
-
-          <article class="evidence-card">
-            <h3>质量侧证据</h3>
-            <p>岗位层次足以支撑多产品线工业化。</p>
-            <ul>
-              <li>运营质量部搭公司级研发质量流程</li>
-              <li>产品线质量总监压住批量交付质量</li>
-              <li>SQE 与供应商质量负责外部工业化能力</li>
-            </ul>
-          </article>
-
-          <article class="evidence-card">
-            <h3>平台化侧证据</h3>
-            <p>不仅卖整机，也在搭上层软件和下层模组能力。</p>
-            <ul>
-              <li>灵心平台聚焦 Agent 配置与调试体验</li>
-              <li>灵巧手、关节、控制器、电池已有独立测试规范</li>
-              <li>中央研究部和 HCI 角色在补前瞻体验能力</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section fade-up delay-4" id="confidence">
-        <div class="section-header">
-          <div>
-            <div class="section-kicker">Confidence</div>
-            <h2>置信度与待核验项</h2>
-            <p>
-              这份图谱适合拿来沟通“组织形态和业务方向”，但不应被当作正式法定组织架构。以下部分相对稳，以下部分建议继续补证。
-            </p>
-          </div>
-        </div>
-
-        <div class="confidence-grid">
-          <article class="confidence-card">
-            <h3>高置信判断</h3>
-            <p>这些线索来自多个岗位互相印证，稳定性最高。</p>
-            <ul>
-              <li>公司存在不止一条机器人业务线，人形只是最核心的一条。</li>
-              <li>品牌、GTM、销售运营、营销服务、质量体系都已经独立建制。</li>
-              <li>交付和售后不是附属岗位，而是公司级能力建设重点。</li>
-              <li>质量方法论明显受到汽车和消费硬件工业化体系影响。</li>
-            </ul>
-          </article>
-
-          <article class="confidence-card">
-            <h3>待核验项</h3>
-            <p>这些部分目前更适合用“推断”而不是“定论”来表达。</p>
-            <ul>
-              <li>杭州智元研究院与上海主体系是否属于完全同一业务树。</li>
-              <li>四足是正式产品线、项目群，还是预研储备方向。</li>
-              <li>商业清洁是正式 BU 还是战略孵化业务。</li>
-              <li>Genie 与精灵 G2 是否为同系列命名，或只是近邻产品。</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <footer class="fade-up delay-4">
-        页面说明：本页基于简历岗位线索逆向整理，适合用于团队讨论、竞对判断与招聘分析。
-        如果要对外公开引用，建议加注“基于公开招聘与候选人简历线索的非官方推断”。
+      <footer>
+        页面说明：本页基于简历岗位线索逆向整理，适合内部沟通、竞对判断和招聘分析。对外引用时，建议明确标注“基于公开招聘与候选人简历线索的非官方推断”。
       </footer>
     </div>
   </body>
